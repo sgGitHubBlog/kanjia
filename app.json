@@ -1,5 +1,6 @@
 {
   "pages":[
+    
     "pages/index/index",
     "pages/product/detail",
     "pages/search/search",
@@ -17,9 +18,9 @@
     "pages/category/index",     
     "pages/ritual/ritual",   
     "pages/rituall/rituall", 
-    "pages/shop_store/shop_store"
-
-
+    "pages/shop_store/shop_store",
+    "pages/kanjia/lists",
+    "pages/kanjia/index"
       ],
   "window":{
     "backgroundTextStyle":"light",

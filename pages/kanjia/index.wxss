@@ -1,0 +1,134 @@
+/* pages/user/user.wxss */
+.me{
+  height: 100%;
+}
+.userinfo{
+  position: relative;
+  width: 750rpx;
+  height: 320rpx;
+  background: #008842;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userinfo-avatar {
+  display: block;
+  width: 160rpx;
+  height: 160rpx;
+  margin: 20rpx;
+  margin-top: 50rpx;
+  border-radius: 50%;
+  border:2px solid #fff;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+.userinfo-nickname {
+  color: #fff;
+  font-size: 14px;
+}
+
+.sc{
+  background: #fff;
+  width: 100%;
+  font-size: 12px;
+  line-height: 16px;
+  color: #666;
+  padding: 4% 0;
+}
+.sc image{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+.bte{
+  border-top: 1px solid #eee;
+}
+.qbdd{
+  background: #fff;
+  width: 92%;
+  font-size: 12px;
+  color: #666;
+  padding: 4%;
+  border-bottom: 1px solid #eee
+}
+
+.c33{
+  float: left;
+  color: #000
+}
+
+contact-button{
+  position: relative;
+  left:-50px;
+  opacity: 0;
+}
+
+.ma15{
+  margin:15px;
+}
+.buttc{
+  background:red;
+  border-top:1px solid #eee;
+  line-height:50px;
+  color:snow;
+  text-align:center;
+}
+.w33{
+  width: 33%
+}
+.w34{
+  width: 34%
+}
+.fl{
+  float: left;
+}
+.db{
+  display: block;
+}
+.pric{
+  background-color:red;
+  text-align:center;
+  color:white;
+
+}
+.swiper-tab-list {
+font-size:12px;
+display:inline-block;
+width:30%;
+color:white;
+
+}
+.swiper-tab {
+width:100%;
+border-bottom:2px solid #eee;
+text-align:center;
+line-height:50rpx;
+background-color:red;
+top:0;
+z-index:999;
+}
+.txc{
+  text-align: center
+}
+.m10{
+  margin:10px
+}
+.m15{
+  margin:15px
+}
+.m20{
+  margin: 20px;
+}
+.bgkan{
+  background-color: red;
+  color: white;
+  line-height:40px;
+}
+.k_log{
+  width: 40px;
+  height: 40px;
+}
+.k_j_l{
+  margin-left: 30px;
+}

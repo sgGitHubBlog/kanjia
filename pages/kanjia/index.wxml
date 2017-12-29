@@ -1,0 +1,69 @@
+<!--pages/index/detail.wxml-->
+
+
+<!--内容开始-->
+<view class="cont">
+ 
+  <view>
+    <image class="tp_image" src="{{kanjia.img}}"></image>
+  </view>
+
+  <view class="title red txc">{{kanjia.name}}</view>
+  <view class="gmxx">
+    <view class="swiper-tab">
+
+      <view class="swiper-tab-list">原价:<span class="db">{{kanjia.price}}</span></view>
+      <view class="swiper-tab-list">砍至： <span class="db">{{kanjia.low}}</span></view>
+       <view class="swiper-tab-list">库存 <span class="db">{{kanjia.num}}</span></view>
+    </view>
+  </view>
+  <view class="m15">
+    <progress percent="{{percent}}" active show-info stroke-width="12" color="red" />
+  </view>
+  <view class="m10 txc">
+    当前价格<span class="red">{{nowkj}}</span>元 离目标还有 <span class="red">{{cankj}}</span>元
+  </view>
+   
+  <view class="m20 txc">
+    <view class ="red bgkan">
+      找好友帮忙
+    </view>
+  </view>
+
+
+  <view class="m10 txc">
+    <view class ="red">
+      砍价高手
+    </view>
+
+  <view class="shop df" wx:for="{{log}}">
+        <image class="k_log" src="{{item.picurl}}"></image>
+        <view class="k_j_l">            
+            <view class="sp_text">
+                <navigator url="../index/detail?productId={{item.ProID}}">
+                    <view class="sp_tit ovh1">{{item.name}}</view>
+                </navigator>
+                <view class="sp_jg">帮忙砍了：¥{{item.price}}</view>
+            </view>
+        </view>
+        
+    </view> 
+
+
+
+
+
+  </view>
+
+
+
+
+
+
+
+
+
+
+</view>
+
+

@@ -62,9 +62,16 @@
     <span class="font_14 c3">优惠劵</span>
     <span class="fl_r c9 font_12 l_h20" hover-class="none"> ></span>
     </navigator>
+
     </view>
 <view class="qbdd mt110">
+ <navigator url="../kanjia/lists">
+    <span class="font_14 c3">砍价活动</span>
+    <span class="fl_r c9 font_12 l_h20" hover-class="none"> ></span>
+    </navigator>
 
+    </view>
+<view class="qbdd mt110">
 <contact-button>
 </contact-button>
 <contact-button>
