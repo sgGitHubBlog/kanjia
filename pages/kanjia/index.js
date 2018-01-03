@@ -20,7 +20,8 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var userInfo = app.globalData.userInfo
+    console.log(app.globalData);
+    var userInfo = app.globalData.userInfo;
     wx.request({
       url: app.d.ceshiUrl + '/Api/Kanjia/index?id=' + options.id + '&fu_id=' + userInfo.openid ,
       method: 'post',
@@ -29,17 +30,14 @@ Page({
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-    
         if (res.data.status == 1) {
           var kanjia = res.data.pro;
           var user = res.data.user;
           console.log(kanjia)
           console.log(user)
-          var percent = 0
-          var nowkj = 0
-          var cankj = 0
+          var percent = 0,nowkj = 0,cankj = 0;
 
-          if (res.data.user.length == 0){
+          if (!user){
             percent = 0;
             nowkj = kanjia.price;
             cankj = kanjia.price - kanjia.low;

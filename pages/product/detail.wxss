@@ -403,3 +403,27 @@ swiper{
   opacity: 0;
 }
 
+.bg{
+  height:10px;
+  width:100%;
+  display: inline-block;
+  background-color: #20bb21;
+  border-radius: 5px;
+}
+.per{
+  background-color: #fd9d21;
+  height:100%;
+  border-radius: 5px;
+}
+.userinfo-avatar{
+  width:30px;
+  height:30px;
+  border-radius: 50%;
+}
+.kjUserList{
+  border-bottom: 1px solid #ccc;
+  padding:10px 0;
+}
+.clear{
+  clear:both;
+}

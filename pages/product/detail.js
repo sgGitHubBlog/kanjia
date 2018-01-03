@@ -11,6 +11,7 @@ Page({
     winHeight: 0,
     currentTab: 0, //tab切换  
     productId:0,
+    openId: '',
     itemData:{},
     bannerItem:[],
     buynum:1,
@@ -24,10 +25,14 @@ Page({
     //准备数据
     //数据结构：以一组一组来进行设定
      commodityAttr:[],
-     attrValueList: []
+     attrValueList: [],
+     helpTaStatus:0,
+     token:'',
+     kjPer:'',
+     kjUser:[]
   },
 
-  // 弹窗
+  //购买弹窗
   setModalStatus: function (e) {
     var animation = wx.createAnimation({
       duration: 200,
@@ -43,12 +48,9 @@ Page({
     })
 
     if (e.currentTarget.dataset.status == 1) {
-
-      this.setData(
-        {
+      this.setData({
           showModalStatus: true
-        }
-      );
+      });
     }
     setTimeout(function () {
       animation.translateY(0).step()
@@ -84,12 +86,54 @@ Page({
   // 传值
   onLoad: function (option) {     
     //this.initNavHeight();
+    console.log(app.globalData.userInfo);
     var that = this;
+    console.log(that);
     that.setData({
       productId: option.productId,
+      openId: app.globalData.userInfo.openid
     });
     that.loadProductDetail();
-
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+    if (option.k && option.token){
+      //帮人砍价,计算砍价百分比
+      that.setData({
+        helpTaStatus:1,
+        token: option.token,
+        kjPer:100,
+      });
+      //获取砍价人员列表/砍价信息
+      wx.request({
+        url: app.d.ceshiUrl + '/Api/kanjia/log',
+        method: 'post',
+        data: {
+          kj_id: that.data.productId,
+          mo_id: app.globalData.userInfo.openid,
+          page:1
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {
+          //--init data 
+          console.log(res);
+          that.setData({
+            kjUser: res[0] ? res[0] : { 'avatarUrl':'https://wx.qlogo.cn/mmopen/vi_32/wzC6wd7ABl9kh5KZQrybzEp0cdSDhVEACcLNvAt6SQC35p1aMV7fX3VubsmJb7RYDYfGmInPyToE4iaCaHEOsOw/0',
+            'nickName':'官爷'
+            },
+          })
+          
+        },
+        error: function (e) {
+          wx.showToast({
+            title: '网络异常！',
+            duration: 2000,
+          });
+        },
+      })
+    }
   },
 // 商品详情数据获取
   loadProductDetail:function(){
@@ -385,7 +429,6 @@ Page({
       }
     });
   },
-
   addShopCart:function(e){ //添加到购物车
     var that = this;
     wx.request({
@@ -432,6 +475,90 @@ Page({
       }
     });
   },
+  helpTa: function (e) { //帮他砍
+    var that = this;
+    wx.request({
+      url: app.d.ceshiUrl + '/Api/kanjia/log',
+      method: 'post',
+      data: {
+        fu_id: that.data.token,
+        kj_id: that.data.productId,
+        mu_id: app.globalData.userInfo.openid,
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        // //--init data
+        console.log(res);return;        
+        var data = res.data;
+        if (data.status == 1) {
+          var ptype = e.currentTarget.dataset.type;
+          if (ptype == 'buynow') {
+            wx.redirectTo({
+              url: '../order/pay?cartId=' + data.cart_id
+            });
+            return;
+          } else {
+            wx.showToast({
+              title: '砍价成功',
+              icon: 'success',
+              duration: 2000
+            });
+          }
+        } else {
+          wx.showToast({
+            title: data.err,
+            duration: 2000
+          });
+        }
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 2000
+        });
+      }
+    });
+  },
+  showKjUserList:function(e){
+    console.log(e);
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+
+    this.animation = animation
+    animation.translateY(300).step();
+
+    this.setData({
+      animationData: animation.export()
+    })
+
+    this.setData({
+      showModalStatus: true
+    });
+    // if (e.currentTarget.dataset.status == 1) {
+    //   this.setData({
+    //     showModalStatus: true
+    //   });
+    // }
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation
+      })
+      if (e.currentTarget.dataset.status == 0) {
+        this.setData(
+          {
+            showModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+  },
   bindChange: function (e) {//滑动切换tab 
     var that = this;
     that.setData({ currentTab: e.detail.current });
@@ -461,5 +588,69 @@ Page({
         currentTab: e.target.dataset.current
       })
     }
+  },
+  onShareAppMessage:function(res){
+    var that = this;
+    var url = "/pages/product/detail?productId=" + that.data.productId + "&token=" + app.globalData.userInfo.openid
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+      url += "&k=1";
+    }
+    return {
+      title: "帮忙砍价【" + that.data.itemData.name+"】",
+      path: url,
+      success: function (res) {
+        // 转发成功
+        wx.request({
+          url: app.d.ceshiUrl + '/Api/kanjia/kanbyuser',
+          method: 'post',
+          data: {
+            fu_id: app.globalData.userInfo.openid,
+            kj_id: that.data.productId,
+            mu_id: app.globalData.userInfo.openid
+          },
+          header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          success: function (res) {
+            // //--init data
+            console.log(res); return;
+            var data = res.data;
+            if (data.status == 1) {
+              var ptype = e.currentTarget.dataset.type;
+              if (ptype == 'buynow') {
+                wx.redirectTo({
+                  url: '../order/pay?cartId=' + data.cart_id
+                });
+                return;
+              } else {
+                wx.showToast({
+                  title: '砍价成功',
+                  icon: 'success',
+                  duration: 2000
+                });
+              }
+            } else {
+              wx.showToast({
+                title: data.err,
+                duration: 2000
+              });
+            }
+          },
+          fail: function () {
+            wx.showToast({
+              title: '网络异常！',
+              duration: 2000
+            });
+          }
+        })
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log(res);
+      }
+    }
   }
+
 });

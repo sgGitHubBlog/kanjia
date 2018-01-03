@@ -5,7 +5,6 @@
     "pages/product/detail",
     "pages/search/search",
     "pages/user/user",
-  
     "pages/user/dingdan",
     "pages/user/tuihuo",
     "pages/order/pay",
@@ -26,8 +25,8 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#008842",
     "navigationBarTitleText": "壹起航商城",
-    "navigationBarTextStyle":"white"
-
+    "navigationBarTextStyle":"white",
+    "enablePullDownRefresh":"true"
   },
    "tabBar": {
     "color": "#858585",

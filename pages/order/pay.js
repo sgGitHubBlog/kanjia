@@ -38,6 +38,7 @@ Page({
         'Content-Type':  'application/x-www-form-urlencoded'
       },
       success: function (res) {
+        console.log(res);
         //that.initProductData(res.data);
         var adds = res.data.adds;
         if (adds){
@@ -82,7 +83,6 @@ Page({
     this.setData({
       paytype: 'weixin',
     });
-
     this.createProductOrder();
   },
 
@@ -104,7 +104,7 @@ Page({
     this.setData({
       btnDisabled:false,
     })
-
+    
     //创建订单
     var that = this;
     wx.request({
