@@ -19,12 +19,14 @@
     "pages/rituall/rituall", 
     "pages/shop_store/shop_store",
     "pages/kanjia/lists",
-    "pages/kanjia/index"
+    "pages/kanjia/index",
+    "pages/product/bargain",
+    "pages/product/view"
       ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#008842",
-    "navigationBarTitleText": "壹起航商城",
+    "navigationBarTitleText": "壹砍价",
     "navigationBarTextStyle":"white",
     "enablePullDownRefresh":"true"
   },

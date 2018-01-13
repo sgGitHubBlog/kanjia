@@ -1,28 +1,36 @@
 <!-- index.wxml -->
 <view class="page">
-    <import src="../common/swiper.wxml"/>
-    <template is="swiper" data="{{indicatorDots:indicatorDots,autoplay:autoplay,interval:interval,duration:duration,imgUrls:imgUrls}}"/>
-    
-    <view class="cont">
-      <navigator class="pr" url="../product/detail?productId={{item.id}}&token=oiQMA0ZkdvRVecNz4r_nLTukoMaI&k=1" hover-class="changestyle"
-                 wx:for="{{productData}}" wx:key="key">
-      <!-- <navigator class="pr" url="../product/detail?productId={{item.id}}" hover-class="changestyle"
-                 wx:for="{{productData}}" wx:key="key"> -->
-        <image class="photo" src="{{item.photo_x}}"></image>
-        <view class="title">{{item.name}}</view>
-        <view style="display:flex;line-height:50rpx;padding:10rpx 0;">
-          <view class="gmxx" style="  color: red;">¥ {{item.price_yh}}</view>
-          <view class="gmx">¥ {{item.price}}</view>
-        </view>
-        <view style="display:flex;line-height:50rpx;color:#999">
-          <view class="gmxx" style="font-size:28rpx;width:30%">
-            <text wx:if="item.is_show==1">新品</text>
-            <text wx:elif="item.is_hot==1">热销</text>
-            <text wx:else>推荐</text>
+  <import src="../common/swiper.wxml" />
+  <template is="swiper" data="{{indicatorDots:indicatorDots,autoplay:autoplay,interval:interval,duration:duration,imgUrls:imgUrls}}" />
+
+  <view class="cont">
+     <!-- <navigator class="pr" url="../product/detail?productId={{item.id}}&token=oiQMA0ZkdvRVecNz4r_nLTukoMaI" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">  -->
+     <navigator class="pr" url="../product/bargain?productId={{item.id}}" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">  
+       <image class="photo" src="{{item.photo_x}}"></image> 
+      <view class="title">【{{item.bname}}】{{item.name}}</view>
+      <view class="title" wx:if="{{item.kj_list.length>0}}">
+        <image wx:for="{{item.kj_list}}" wx:key="key" wx:for-index="cellindex" wx:if="{{cellindex<8}}" wx:for-item="cell" class="s_avatar" src="{{cell.picurl}}"></image>
+        <view class="fl_r l_text">{{item.kj_list.length}}人正在参加</view>
+      </view>
+      <view class='title'>
+        <view>
+          <view class='fl_l' style="margin-top: 30rpx;">
+            <span class="font_12" style="color: red">最低</span>
+            <span class="gmxx font_16" style="color: red;">¥{{item.kj_lowprice}}</span>
           </view>
-          <view class="ku" style="width:60%">销量：{{item.shiyong}}</view>
+          <view class="gmx fl_l" style="margin-top: 30rpx;">原价：¥ {{item.price}}</view>
+          <view class="mt_kj bg_cheng fl_r">去砍价</view>
         </view>
-      </navigator>
-    </view>
-    <view class="clear mt10" bindtap="getMore">点击查看更多</view>
+      </view>
+      <!-- <view style="display:flex;line-height:50rpx;color:#999">
+        <view class="gmxx" style="font-size:28rpx;width:30%">
+          <text wx:if="item.is_show==1">新品</text>
+          <text wx:elif="item.is_hot==1">热销</text>
+          <text wx:else>推荐</text>
+        </view>
+        <view class="ku" style="width:60%">销量：{{item.shiyong}}</view>
+      </view> -->
+    </navigator>
   </view>
+  <view class="clear mt10" bindtap="getMore">点击查看更多</view>
+</view>

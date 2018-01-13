@@ -99,7 +99,7 @@ bindPlus: function(e) {
           that.sum();
         }else{
           wx.showToast({
-            title: '操作失败！',
+            title: res.data.err,
             duration: 2000
           });
         }
@@ -244,8 +244,9 @@ removeShopCard:function(e){
   },
 
 // 数据案例
-  loadProductData:function(){
+loadProductData:function(){
     var that = this;
+    console.log(that);
     wx.request({
       url: app.d.ceshiUrl + '/Api/Shopping/index',
       method:'post',

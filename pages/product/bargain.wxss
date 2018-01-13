@@ -3,7 +3,6 @@
     width: 100%;
     background: rgba(0,0,0,.6);
     padding: 3% 0;
-    display: inline-table;
     position: fixed;
     z-index: 9999;
     display: none;
@@ -437,4 +436,35 @@ button.bg_no{
 }
 .wxParse-p .wxParse-img{
   width:100% !important;
+}
+.gmx {
+  text-align: left;
+  font-size: 26rpx;
+  margin-left:10px; 
+  text-decoration:line-through;
+  color: #999;
+  display:inline-block;
+}
+.line{
+  width:100%;
+  display: inline-block;
+  border-top: 2px solid #f85;
+}
+.kj_time{
+  display: inline-block;
+  margin: 20px 0;
+}
+.mt_kj {
+  margin: 0 auto;
+  text-align: center;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  margin-top: 16rpx;
+  display:inline-block;
+  color:#fff;
+  padding: 0 20px;
+  border: 0;
+
 }

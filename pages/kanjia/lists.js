@@ -21,11 +21,14 @@ Page({
     wx.request({
       url: app.d.ceshiUrl + '/Api/Kanjia/lists',
       method: 'post',
-      data: {},
+      data: {
+        token: app.globalData.userInfo.openid
+      },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
+        console.log(res);
         app.getUserInfo(function (userInfo) {
           //更新数据
           that.setData({

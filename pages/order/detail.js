@@ -24,7 +24,6 @@ Page({
         'Content-Type':  'application/x-www-form-urlencoded'
       },
       success: function (res) {
-
         var status = res.data.status;
         if(status==1){
           var pro = res.data.pro;

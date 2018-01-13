@@ -7,9 +7,11 @@
 			<view class="df_1">	
 				<view class="font_14 mt5 ovh1">
 		           {{item.name}}
-		        </view>
-			<text class="gm_ovh_1h red pt10">¥{{item.price}}</text>
-			<text class="gm_ovh_1h pt10">数量：{{item.num}}</text>
+		    </view>
+        <text class="gm_ovh_1h red pt10">当前价：¥{{item.price}}</text>
+			  <text class="gmx gm_ovh_1h red pt10">原价：¥{{item.cost}}</text>
+			  <text class="gm_ovh_1h pt10">数量：{{item.num}}</text>
+        <text class="gm_ovh_1h pt10">运费：¥{{item.kj_postage}}</text>
 			</view>
 		</view>		
 		

@@ -72,6 +72,7 @@ button.bg_no{content: none !important;line-height:50px;}
 .c3{  color: #333;}
 .c6{  color: #666;}
 .c9{  color: #999;}
+.f_cheng{ color: #f85;}
 .white{  color: #fff;}
 .font_16{  font-size: 16px;}
 .font_14{  font-size: 13px;}
@@ -123,6 +124,7 @@ button.bg_no{content: none !important;line-height:50px;}
 
 .w10{ width: 10%;}
 .w20{ width: 20%;}
+.w25{ width: 25%;}
 .w30{ width: 30%;}
 .w33{ width: 33.33333333%;}
 .w40{ width: 40%;}
@@ -147,6 +149,11 @@ button.bg_no{content: none !important;line-height:50px;}
   clear: both;
   height: 1px;
   margin-top: 60px;
+}
+.cl_h_2{
+  clear: both;
+  height: 1px;
+  margin-top: 20px;
 }
 .shop{ position: relative;}
 .video{
@@ -188,4 +195,13 @@ background-color:#d9002f;
 
 .h50{
   height: 50px
+}
+
+.gmx {
+  text-align: left;
+  font-size: 26rpx;
+  margin-left:10px; 
+  text-decoration:line-through;
+  color: #999;
+  display:inline-block;
 }

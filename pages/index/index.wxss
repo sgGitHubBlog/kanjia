@@ -66,13 +66,12 @@ display:-webkit-box;
 
 }
 .cont .pr {
-margin-bottom:10px;
-background:#fff;
-display:inline-block;
-width:46%;
-border:1px solid #EDEDED;
-margin-left:18rpx;
-
+  background:#fff;
+  width:96%;
+  margin:0rpx auto;
+  margin-bottom:10px;
+  border:1px solid #EDEDED;
+  padding-bottom: 20rpx;
 }
 
 .prr {
@@ -89,8 +88,7 @@ margin-left:18rpx;
 }
 
 .photo{
-  height:345rpx;
-  width:345rpx;
+  width:100%;
 }
 
 .cont .title {
@@ -98,7 +96,6 @@ margin-left:18rpx;
   color: #333;
   line-height: 20px;
   margin: 0;
-  height: 40px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -131,21 +128,24 @@ margin-left:18rpx;
 }
 
 .gmx {
-text-align: left;
-  width: 50%; font-size: 26rpx;
-  margin-right:10rpx; text-decoration:line-through;
-
-color: #999}
+  text-align: left;
+  font-size: 26rpx;
+  margin-left:10px; 
+  text-decoration:line-through;
+  color: #999;
+  display:inline-block;
+}
 .ku{
   text-align: right;
-  width: 50%; font-size: 26rpx;
+  width: 50%; 
+  font-size: 26rpx;
   margin-right:10rpx;
 }
 .gmh{
   float:left;  padding: 1% 5% 5% 5%;
 }
 .gmxx .jiage {
-  font-size: 14px;
+  font-size: 14rpx;
   color: #d9002f;
   /*padding-top: 10px; */
 }
@@ -409,6 +409,21 @@ icon {
   margin-top: 30rpx;
 }
 
+.mt_kj {
+  margin: 0 auto;
+  text-align: center;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  margin-top: 16rpx;
+  display:inline-block;
+  color:#fff;
+  padding: 0 20px;
+  border: 0;
+
+}
+
 
 .zixun{
  height:154rpx;
@@ -443,3 +458,12 @@ opacity: 0;
   opacity: 0;
 }
 
+.s_avatar{
+  width:25px;
+  height:25px;
+  border-radius: 50%;
+}
+.l_text{
+  line-height: 25px;
+  margin-left:10px;
+}

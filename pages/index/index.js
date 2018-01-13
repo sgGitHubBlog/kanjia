@@ -25,92 +25,7 @@ Page({
     lastcat: [],
     course: [],
   },
-  //跳转商品列表页   
-  listdetail: function (e) {
-    console.log(e.currentTarget.dataset.title)
-    wx.navigateTo({
-      url: '../listdetail/listdetail?title=' + e.currentTarget.dataset.title,
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
-  },
-  //跳转商品搜索页  
-  suo: function (e) {
-    wx.navigateTo({
-      url: '../search/search',
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
-  },
-  //后四个分类跳转
-  other: function (e) {
-    var ptype = e.currentTarget.dataset.ptype;
-    var title = e.currentTarget.dataset.text;
-    if (ptype == 'news') {
-      wx.navigateTo({
-        url: '../inf/inf'
-      });
-    } else if (ptype == 'jxys') {
-      wx.navigateTo({
-        url: '../synopsis/synopsis?title=教学优势&wedId=2'
-      });
-    } else if (ptype == 'xyfc') {
-      wx.navigateTo({
-        url: '../student_style/student_style'
-      });
-    } else if (ptype == 'gywm') {
-      wx.navigateTo({
-        url: '../synopsis/synopsis?title=关于我们&wedId=1'
-      });
-    }
-  },
 
-  //品牌街跳转商家详情页
-  jj: function (e) {
-    var id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '../listdetail/listdetail?brandId=' + id,
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
-  },
-
-  tian: function (e) {
-    var id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '../works/works',
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
-  },
   //点击加载更多
   getMore: function (e) {
     var that = this;
@@ -206,7 +121,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: '壹起航商城',
+      title: '壹砍价',
       path: '/pages/index/index',
       success: function (res) {
         // 分享成功
@@ -253,6 +168,5 @@ Page({
       },
     })
   }
-
 
 });

@@ -51,7 +51,7 @@ Page({
         that.setData({
           addemt: res.data.addemt,
           productData:res.data.pro,
-          total: res.data.price,
+          total: parseFloat(res.data.price) + parseFloat(res.data.pro[0].kj_postage),
           vprice: res.data.price,
           vou: res.data.vou,
         });
@@ -168,8 +168,9 @@ Page({
           'Content-Type':  'application/x-www-form-urlencoded'
         }, // 设置请求的 header
         success: function(res){
+          console.log(res);
           if(res.data.status==1){
-            var order=res.data.arr;
+            var order = res.data.arr;
             wx.requestPayment({
               timeStamp: order.timeStamp,
               nonceStr: order.nonceStr,
@@ -177,6 +178,7 @@ Page({
               signType: 'MD5',
               paySign: order.paySign,
               success: function(res){
+                console.log(res);
                 wx.showToast({
                   title:"支付成功!",
                   duration:2000,

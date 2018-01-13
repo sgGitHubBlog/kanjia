@@ -8,6 +8,7 @@ App({
     appId:"",
     appKey:"",
     ceshiUrl:'https://kanjia.jiajuwz.com/index.php',
+    msgList:[]
   },
   onLaunch: function () {
     //调用API从本地缓存中获取数据
@@ -29,6 +30,7 @@ App({
           //get wx user simple info
           wx.getUserInfo({
             success: function (res) {
+              console.log(res);
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo);
               //get user sessionKey
@@ -54,6 +56,7 @@ App({
       },
       success: function (res) {
         //--init data        
+        console.log(res);
         var data = res.data;
         if(data.status==0){
           wx.showToast({

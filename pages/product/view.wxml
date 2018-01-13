@@ -1,6 +1,5 @@
 <!--pages/index/detail.wxml-->
 
-
 <!--内容开始-->
 <view class="cont">
   <!--<image class="tp_image" src="{{itemData.photo_d}}"></image>-->
@@ -14,19 +13,17 @@
   <view class="title">【{{itemData.brand}}】{{itemData.name}}</view>
   <view class="gmxx">
     <view>
-      <span class="jiage">砍价后：¥{{itemData.kjPrice}}</span>
-      <span class="gmx">原价：¥{{itemData.price}}</span>
-    </view>
-    <view>
+      <!-- <span wx:if="{{!kjJdStatus}}" class="jiage">原价：¥{{itemData.price_yh}}</span> -->
+      <!-- <span wx:if="{{kjJdStatus}}" class="jiage">砍价后：¥{{kjPrice}}</span> -->
       <span class="font_12">当前库存：{{itemData.num}}<text class='f_cheng'>【库存为0时，所有砍价停止】</text></span>
     </view>
     <!-- <view class="font_14 c6">品牌：{{itemData.brand}}</view>
     <view class="font_14 c6">支付：微信支付</view> -->
   </view>
-  <view class="gmxx">
+  <view class="gmxx" wx:if="{{kjJdStatus}}">
     <view class="font_14 c6" style='line-height:37px;'>
       <image class="fl_l userinfo-avatar" src='{{userInfo.avatarUrl}}'></image>
-      <text class="fl_l">砍价进度：原价为{{itemData.price}},已砍至{{itemData.kjPrice==itemData.kj_lowprice?'最低':''}}{{itemData.kjPrice}}</text>
+      <text class="fl_l">砍价进度：原价为{{itemData.price}},已砍至{{itemData.cost}}</text>
     </view>
     <view class="bg">
         <view class="per" style="width:{{kjPer}};"></view>
@@ -35,11 +32,9 @@
       <view class='fl_l'>￥{{itemData.kj_lowprice}}</view>
       <view class='fl_r'>￥{{itemData.price}}</view>
     </view>
-    <view class='clear'></view>
   </view>
-  <view class="gmxx">
-    <view class="font_14 c6">
-      <view>排行榜：</view>
+  <view class="gmxx" wx:if="{{kjJdStatus}}">
+    <view class="font_14 c6">排行榜：
       <view class="kjUserList" bindtap="showKjUserList">
         <image class="userinfo-avatar fl_l" src="{{kjOne.picurl}}" background-size="cover"></image>{{kjOne.name}}
         <span class="fl_r">
@@ -52,6 +47,27 @@
   </view>
 </view>
 
+
+<!--购买弹窗-->
+<view class="drawer_screen" bindtap="setModalStatus" data-status="0" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
+  <view class="close_icon" bindtap="setModalStatus" data-status="0">×</view>
+  <view class="drawer_attr_content">
+    <view class="text_center">
+      <image class="drawer_image" src="{{itemData.photo_x}}"></image>
+      <view class="mingcheng">
+        <view>{{itemData.name}}</view>
+        <view style="font-size:29rpx;color:red">¥ {{itemData.cost}}</view>
+        <view style="font-size:26rpx;color:#ccc">库存：{{itemData.num}}</view>
+      </view>
+    </view>
+
+    <view style="width:100%;margin-bottom:160rpx;"></view>
+    <view class="footc" bindtap="addShopCart" data-type="buynow" data-status="1">
+      立即购买
+    </view>
+  </view>
+</view>
 
 <!--砍价排行榜弹窗-->
 <view class="drawer_screen" bindtap="showKjUserList" data-status="0" wx:if="{{showKjModalStatus}}"></view>
@@ -116,28 +132,12 @@
 </view>
 <!---底部开始-->
 <view class="footfixed tc">
-  <!-- <view class="fl_l w40 font_12 hui03 df">
-    <view class="df_1 l_h15 pt5 bre">
-      <contact-button type="default-light" session-from="productId_{{itemData.id}}" class="ke">
-        <contact-button class="pos"></contact-button>
-        <image class="icon_kf" src="/images/kefu.png" style="margin-right:20px;"></image>
-        <view class="dbtext" style="line;margin-top:5px">客服</view>
-      </contact-button>
-    </view>
-    <view class="df_1 l_h15 pt5">
-      <view bindtap="addFavorites">
-        <image class="icon_kf" src="/images/shc.png"></image>
-        <view bindtap="addFavorites" class="dbtext">收藏</view>
-      </view>
-    </view>
-  </view> -->
   <view class="fl_l w100">
-    <view class="w50 fl_l h50 bg_green white" bindtap="helpTa" data-type="helpTa">帮Ta砍</view>
-    <!-- <view class="w33 fl_l h50 bg_cheng white" bindtap="addShopCart" data-type="addcart">加入购物车</view> -->
-    <view class="fl_l w50 h50 bg_red white" open-type="share">
-      <button wx:if="{{kjType}}" class="w100 fl_l bg_no white" open-type="share">喊人砍价</button>
-      <view wx:if="{{!kjType}}" class="w100 fl_l h50 bg_red white" bindtap="helpTa" data-type="helpMe">发起砍价</view>
+    <view wx:if="{{!helpTaStatus}}" class="fl_l w50 h50 bg_green white" open-type="share">
+      <button wx:if="{{!kjType}}" class="w100 fl_l bg_no white" open-type="share">喊人砍价</button>
     </view>
-    <!-- <view class="bg_red h50 white w50 fl_l" bindtap="setModalStatus" data-status="1">立刻购买</view> -->
+    <!-- <view wx:if="{{helpTaStatus}}" class="w33 fl_l h50 bg_green white" bindtap="helpTa" data-type="helpTa">帮Ta砍</view> -->
+    <!-- <view class="w33 fl_l h50 bg_cheng white" bindtap="addShopCart" data-type="addcart">加入购物车</view> -->
+    <view class="bg_red h50 white w50 fl_l" bindtap="setModalStatus" data-status="1">立刻购买</view>
   </view>
 </view>
