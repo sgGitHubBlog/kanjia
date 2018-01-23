@@ -5,20 +5,22 @@
 
   <view class="cont">
      <!-- <navigator class="pr" url="../product/detail?productId={{item.id}}&token=oiQMA0ZkdvRVecNz4r_nLTukoMaI" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">  -->
-     <navigator class="pr" url="../product/bargain?productId={{item.id}}" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">  
+     <navigator class="pr" url="../product/bargain?productId={{item.id}}" hover-class="changestyle" wx:for="{{productData}}" wx:key="key"> 
+      <view class="shengyu">剩余：{{item.num}} {{item.company}}</view> 
        <image class="photo" src="{{item.photo_x}}"></image> 
       <view class="title">【{{item.bname}}】{{item.name}}</view>
       <view class="title" wx:if="{{item.kj_list.length>0}}">
-        <image wx:for="{{item.kj_list}}" wx:key="key" wx:for-index="cellindex" wx:if="{{cellindex<8}}" wx:for-item="cell" class="s_avatar" src="{{cell.picurl}}"></image>
+        <image wx:for="{{item.kj_list}}" wx:key="key" wx:for-index="cellindex" wx:if="{{cellindex<10}}" wx:for-item="cell" class="s_avatar" src="{{cell.picurl}}"></image>
+        
         <view class="fl_r l_text">{{item.kj_list.length}}人正在参加</view>
       </view>
       <view class='title'>
         <view>
           <view class='fl_l' style="margin-top: 30rpx;">
-            <span class="font_12" style="color: red">最低</span>
-            <span class="gmxx font_16" style="color: red;">¥{{item.kj_lowprice}}</span>
+            <span class="font_14" style="color: red">最低</span>
+            <span class="gmxx" style="color: red;">¥{{item.kj_lowprice}}</span>
           </view>
-          <view class="gmx fl_l" style="margin-top: 30rpx;">原价：¥ {{item.price}}</view>
+          <view class="gmx fl_l" style="margin-top: 31rpx;">原价：¥ {{item.price}}</view>
           <view class="mt_kj bg_cheng fl_r">去砍价</view>
         </view>
       </view>

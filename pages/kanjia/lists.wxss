@@ -6,7 +6,7 @@
   position: relative;
   width: 750rpx;
   height: 320rpx;
-  background: #008842;
+  background: #3B9FF2;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
   background: #fff;
   width: 100%;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 32rpx;
   color: #666;
   padding: 4% 0;
 }
@@ -78,4 +78,32 @@ image{
   line-height:50px;
   color:snow;
   text-align:center;
+}
+.sh_slt{
+  padding:20rpx;
+}
+.sp_tit{
+  font-size:32rpx;
+  padding:20rpx 0;
+  max-height:80px;
+}
+.jiage{
+  border-bottom:1px dashed #CDC9C9;
+  border-top:1px dashed #CDC9C9;
+  padding:20rpx 0;
+  font-size:32rpx;
+}
+.jiage .jgname{
+  color:#666666;
+  padding-top:4rpx;
+  font-weight: 300;
+}
+.bor_right{
+  border-right:1px dashed #CDC9C9;
+  border-left:2px dashed #fff;
+  width:24%;
+}
+.zhuangtai{
+  padding:20rpx 5%;
+  font-size:32rpx;
 }

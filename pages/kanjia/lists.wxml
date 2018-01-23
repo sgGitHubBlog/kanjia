@@ -1,38 +1,35 @@
 <!--pages/kanjia/list.wxml-->
 <view class="page">
-  <view class="userinfo">
-    <image class="userinfo-avatar fl_l" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="fl_l">{{userInfo.nickName}}</text>
-  </view>
+  
 
 <!--砍价活动列表-->
-  <navigator class="shop" url="{{item.dh_status==1?'../product/view?productId='+item.kj_id+'&token='+item.openid:'../product/bargain?productId='+item.kj_id+'&token='+item.openid}}" hover-class="changestyle" wx:for="{{kanjia}}" wx:key="key">
+  <navigator class="shop" url="{{item.dh_status==1?'../product/view?productId='+item.kj_id+'&token='+item.openid:'../product/bargain?productId='+item.kj_id+'&token='+item.openid}}" hover-class="changestyle" wx:for="{{kanjia}}" wx:key="key" style="margin-bottom:10px;">
     <view class="df">
         <image class="sh_slt" src="{{item.photo_x}}"></image>         
         <view class="sp_text">
             <navigator url="../product/detail?productId={{item.ProID}}">
-                <view class="sp_tit ovh1">【{{item.bname}}】{{item.name}}</view>
+                <view class="sp_tit">【{{item.bname}}】{{item.name}}</view>
             </navigator>
         </view>
     </view>
-    <view style="border-bottom:1px solid #eee;padding-bottom:10px;">
-      <view>
-        <view class="fl_l w25 tc f_cheng">¥{{item.price}}</view>
-        <view class="fl_l w25 tc f_cheng">¥{{item.cost}}</view>
-        <view class="fl_l w25 tc f_cheng">¥{{item.kj_lowprice}}</view>
+    <view class="jiage" style="">
+      <view class="money">
+        <view class="fl_l  tc f_cheng bor_right">¥{{item.price}}</view>
+        <view class="fl_l  tc f_cheng bor_right">¥{{item.cost}}</view>
+        <view class="fl_l  tc f_cheng bor_right">¥{{item.kj_lowprice}}</view>
         <view class="fl_l w25 tc f_cheng">{{item.logTotal}}</view>
         <view class="clear"></view>
       </view>
-      <view>
-        <view class="fl_l w25 tc">原  价</view>
-        <view class="fl_l w25 tc">当前价</view>
-        <view class="fl_l w25 tc">最低价</view>
+      <view class="jgname">
+        <view class="fl_l tc bor_right">原  价</view>
+        <view class="fl_l tc bor_right">当前价</view>
+        <view class="fl_l tc bor_right">最低价</view>
         <view class="fl_l w25 tc">人帮砍</view>
         <view class="clear"></view>
       </view>
             
     </view>
-    <view class="f_cheng" style="border-bottom:1px solid #eee;padding-bottom:10px;padding-left:20px;">
+    <view class="f_cheng zhuangtai">
       活动状态：{{item.dh_status == 1? '进行中':(item.dh_status == 99?'已支付':(item.dh_status==2?'已过期':'已失效'))}}
     </view>
   </navigator>

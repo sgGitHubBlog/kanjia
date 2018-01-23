@@ -57,7 +57,7 @@ page{
 .bg_green{ background: #02bf02;}
 .bg_cheng{ background: #f85;}
 .bg_no{background: none;border: 0 !important;border-radius: 0;}
-button.bg_no{content: none !important;line-height:50px;}
+button.bg_no{content: none !important;line-height:100rpx;}
 
 .clear{  clear: both;}
 .ovh1{
@@ -74,10 +74,11 @@ button.bg_no{content: none !important;line-height:50px;}
 .c9{  color: #999;}
 .f_cheng{ color: #f85;}
 .white{  color: #fff;}
-.font_16{  font-size: 16px;}
-.font_14{  font-size: 13px;}
-.font_12{  font-size: 12px;}
-.font_10{  font-size: 10px;}
+.font_18{  font-size: 36rpx;}
+.font_16{  font-size: 32rpx;}
+.font_14{  font-size: 28rpx;}
+.font_12{  font-size: 24rpx;}
+.font_10{  font-size: 20rpx;}
 .l_h20{
   line-height: 20px;
 }
@@ -141,9 +142,18 @@ button.bg_no{content: none !important;line-height:50px;}
 .bre{ border-right: 1px solid #eee;}
 .ble{ border-left: 1px solid #eee;}
 
-.footfixed { display: block; position: fixed; bottom: 0; left: 0;
-  background: #fff; z-index: 100; width:100%; font-size: 14px;
-  border-top: 1px solid #eee; line-height: 50px;
+.footfixed {
+  display:block;
+  position:fixed;
+  bottom:0;
+  left:0;
+  background:#fff;
+  z-index:100;
+  width:100%;
+  font-size:12px;
+  line-height:50px;
+  color: snow;
+  height: 50px;
 }
 .cl_h{
   clear: both;
@@ -194,7 +204,7 @@ background-color:#d9002f;
 }
 
 .h50{
-  height: 50px
+  height: 100rpx
 }
 
 .gmx {
@@ -204,4 +214,55 @@ background-color:#d9002f;
   text-decoration:line-through;
   color: #999;
   display:inline-block;
+}
+
+.btn_no:after{
+  border:none;
+}
+
+.dis_line{
+  display:inline-block;
+}
+.icon{
+  width:27px;
+  height:27px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 6px;
+}
+.icon_title{
+  font-size: 10px;
+  display: block;
+  line-height: 16px;
+  color:#999;
+  font-weight: 100;
+}
+
+.bigWrap{ 
+  background:#eee; 
+} 
+
+.com-widget-goTop { 
+  position: fixed; 
+  bottom: 125px; 
+  right: 10px; 
+  background: #fff; 
+  border-radius: 50%; 
+  overflow: hidden; 
+  z-index: 500; 
+  opacity: 0.6
+} 
+.com-widget-goTop .icon-gotop{ 
+  display: inline-block; 
+  width: 40px; 
+  line-height: 15px; 
+  font-size: 12px; 
+  color: rgba(0,0,0,0.48); 
+  text-align: center; 
+  border-radius: 50%; 
+}
+.top-icon{
+  margin-top:2px;
+  height:20px;
+  transform: rotate(-180deg)
 }

@@ -9,7 +9,7 @@ Page({
     }, {
       'photo': '/test/banner_01.jpg'
     }],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 1000,
@@ -42,7 +42,7 @@ Page({
         var prolist = res.data.prolist;
         if (prolist == '') {
           wx.showToast({
-            title: '没有更多数据！',
+            title: '暂无更多！',
             duration: 2000
           });
           return false;

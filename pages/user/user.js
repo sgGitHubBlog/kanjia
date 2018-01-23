@@ -4,6 +4,7 @@ Page( {
   data: {
     userInfo: {},
     orderInfo:{},
+    animationData: {},
     projectSource: 'https://github.com/liuxuanqiang/wechat-weapp-mall',
     userListInfo: [ {
         icon: '../../images/iconfont-dingdan.png',
@@ -43,8 +44,21 @@ Page( {
           loadingHidden: true
         })
       });
-
       this.loadOrderStatus();
+
+      var kuan = wx.getSystemInfoSync().windowWidth//读取屏幕宽度
+      const ctx = wx.createCanvasContext('myCanvas')
+      
+      const grd = ctx.createLinearGradient(0, 0, 0, 200)
+      grd.addColorStop(0, '#3B9FF2')
+      grd.addColorStop(1, '#ffffff')
+
+      ctx.setFillStyle(grd)
+      ctx.fillRect(0, 0, kuan, 250)
+
+      ctx.fill()
+      ctx.draw()
+         
   },
   onShow:function(){
     this.loadOrderStatus();
@@ -86,7 +100,7 @@ Page( {
   },
   onShareAppMessage: function () {
     return {
-      title: '宠物美容学校',
+      title: '壹砍价',
       path: '/pages/index/index',
       success: function (res) {
         // 分享成功

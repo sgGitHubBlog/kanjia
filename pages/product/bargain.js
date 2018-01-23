@@ -16,7 +16,7 @@ Page({
     bannerItem: [],
     buynum: 1,
     // 产品图片轮播
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 1000,
@@ -37,9 +37,27 @@ Page({
     countDownHour: 0,
     countDownMinute: 0,
     countDownSecond: 0,
-    bargain_time:''
+    bargain_time:'',
+    scrollTop: 0
   },
-
+  //返回顶部
+  goTop: function (e) {
+    this.setData({
+      scrollTop: 0
+    })
+  },
+  scroll: function (e, res) {
+    // 容器滚动时将此时的滚动距离赋值给 this.data.scrollTop
+    if (e.detail.scrollTop > 500) {
+      this.setData({
+        floorstatus: true
+      });
+    } else {
+      this.setData({
+        floorstatus: false
+      });
+    }
+  },
   //购买弹窗
   setModalStatus: function (e) {
     var animation = wx.createAnimation({

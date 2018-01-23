@@ -1,3 +1,4 @@
+
 //index.js  
 //获取应用实例  
 var app = getApp();
@@ -17,7 +18,7 @@ Page({
     bannerItem: [],
     buynum: 1,
     // 产品图片轮播
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 1000,
@@ -33,7 +34,12 @@ Page({
     kjPer: '',
     kjUser: [],
     kjType: true,
-    kjPrice: ''
+    kjPrice: '',
+    countDownDay: 0,
+    countDownHour: 0,
+    countDownMinute: 0,
+    countDownSecond: 0,
+    bargain_time: ''
   },
 
   //购买弹窗
@@ -128,6 +134,56 @@ Page({
       }, 1000)
     }.bind(that));
   },
+  // 砍价剩余时间  
+  countdown: function () {
+    var that = this;
+    var totalSecond = that.data.bargain_time - Date.parse(new Date()) / 1000;
+
+    var interval = setInterval(function () {
+      // 秒数  
+      var second = totalSecond;
+
+      // 天数位  
+      var day = Math.floor(second / 3600 / 24);
+      var dayStr = day.toString();
+      if (dayStr.length == 1) dayStr = '0' + dayStr;
+
+      // 小时位  
+      var hr = Math.floor((second - day * 3600 * 24) / 3600);
+      var hrStr = hr.toString();
+      if (hrStr.length == 1) hrStr = '0' + hrStr;
+
+      // 分钟位  
+      var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
+      var minStr = min.toString();
+      if (minStr.length == 1) minStr = '0' + minStr;
+
+      // 秒位  
+      var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
+      var secStr = sec.toString();
+      if (secStr.length == 1) secStr = '0' + secStr;
+
+      this.setData({
+        countDownDay: parseInt(dayStr),
+        countDownHour: hrStr,
+        countDownMinute: minStr,
+        countDownSecond: secStr,
+      });
+      totalSecond--;
+      if (totalSecond < 0) {
+        clearInterval(interval);
+        wx.showToast({
+          title: '活动已结束',
+        });
+        this.setData({
+          countDownDay: '00',
+          countDownHour: '00',
+          countDownMinute: '00',
+          countDownSecond: '00',
+        });
+      }
+    }.bind(this), 1000);
+  },
   // 商品详情数据获取
   loadProductDetail: function (callback) {
     var that = this;
@@ -152,11 +208,13 @@ Page({
           that.setData({
             itemData: pro,
             bannerItem: pro.img_arr,
+            bargain_time: pro.et_time,
             commodityAttr: res.data.commodityAttr,
             attrValueList: res.data.attrValueList,
             kjPrice: pro.price,
             kjPer: (100-Math.round(pro.cost / (pro.price - pro.kj_lowprice) * 10000) / 100.00) + "%"
           });
+          that.countdown();
         } else {
           wx.showToast({
             title: res.data.err,
@@ -172,6 +230,7 @@ Page({
       },
     });
   },
+  
   loadKanjiaDetail: function (callback) {
     var that = this;
 

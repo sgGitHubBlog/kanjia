@@ -137,10 +137,6 @@ App({
 
   globalData:{
     userInfo:null
-  },
-
-  onPullDownRefresh: function (){
-    wx.stopPullDownRefresh();
   }
 
 });

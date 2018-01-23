@@ -4,7 +4,7 @@
   <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" data-otype="deliver" bindtap="swichNav">待发货</view>
   <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" data-otype="receive" bindtap="swichNav">待收货</view>
   <view class="swiper-tab-list {{currentTab==3 ? 'on' : ''}}" data-current="3" data-otype="finish" bindtap="swichNav">已完成</view>
-  <view class="swiper-tab-list {{currentTab==4 ? 'on' : ''}}" data-current="4" bindtap="swichNav">退款/售后</view>
+  <!--<view class="swiper-tab-list {{currentTab==4 ? 'on' : ''}}" data-current="4" bindtap="swichNav">退款/售后</view>-->
 </view>
 <view class="c_t60"></view>
 <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
