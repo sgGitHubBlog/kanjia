@@ -163,7 +163,6 @@
 .carts-subtitle {
   font-size: 25rpx;
   color:darkgray;
-  padding: 0 20rpx;
   display: flex;
   flex-direction: row;
   justify-content:space-between;

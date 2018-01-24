@@ -83,7 +83,8 @@ Page({
     this.setData({
       paytype: 'weixin',
     });
-    this.createProductOrder();
+    var formId = e.detail.formId;
+    this.createProductOrder(formId);
   },
 
   //线下支付
@@ -100,7 +101,7 @@ Page({
   },
 
   //确认订单
-  createProductOrder:function(){
+  createProductOrder: function (formId){
     this.setData({
       btnDisabled:false,
     })
@@ -136,7 +137,7 @@ Page({
           }
           if(data.arr.pay_type == 'weixin'){
             //微信支付
-            that.wxpay(data.arr);
+            that.wxpay(data.arr, formId);
           }
         }else{
           wx.showToast({
@@ -155,62 +156,91 @@ Page({
   },
   
   //调起微信支付
-  wxpay: function(order){
-      wx.request({
-        url: app.d.ceshiUrl + '/Api/Wxpay/wxpay',
-        data: {
-          order_id:order.order_id,
-          order_sn:order.order_sn,
-          uid:this.data.userId,
-        },
-        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-        header: {
-          'Content-Type':  'application/x-www-form-urlencoded'
-        }, // 设置请求的 header
-        success: function(res){
-          console.log(res);
-          if(res.data.status==1){
-            var order = res.data.arr;
-            wx.requestPayment({
-              timeStamp: order.timeStamp,
-              nonceStr: order.nonceStr,
-              package: order.package,
-              signType: 'MD5',
-              paySign: order.paySign,
-              success: function(res){
-                console.log(res);
-                wx.showToast({
-                  title:"支付成功!",
-                  duration:2000,
-                });
-                setTimeout(function(){
-                  wx.navigateTo({
-                    url: '../user/dingdan?currentTab=1&otype=deliver',
+  wxpay: function (order, formId){
+    var order_sn = order.order;
+    wx.request({
+      url: app.d.ceshiUrl + '/Api/Wxpay/wxpay',
+      data: {
+        order_id:order.order_id,
+        order_sn:order.order_sn,
+        uid:this.data.userId,
+      },
+      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      header: {
+        'Content-Type':  'application/x-www-form-urlencoded'
+      }, // 设置请求的 header
+      success: function(res){
+        console.log(res);
+        if(res.data.status==1){
+          var order = res.data.arr;
+          console.log(order);
+          wx.requestPayment({
+            timeStamp: order.timeStamp,
+            nonceStr: order.nonceStr,
+            package: order.package,
+            signType: 'MD5',
+            paySign: order.paySign,
+            success: function(res){
+              console.log(formId);
+              wx.showToast({
+                title:"支付成功!",
+                duration:2000,
+              });
+              //发送订单信息模板
+              var msgTplUrl = app.d.ceshiUrl + '/Api/Wxpay/getmsgs';
+              wx.request({
+                url: msgTplUrl,
+                method: 'post',
+                data: {
+                  tplId: 'CyGsQ2XQFwxESw0u286oqZL9Q4vYEkdpnpv91rYMxtU',
+                  order_sn: order.order_sn,
+                  //pay_sn: formId,   //测试该方式可以
+                  pay_sn: order.pay_sn,
+                  openid: app.globalData.userInfo.openid
+                },
+                header: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                success: function (res) {
+                  //--init data
+                  console.log(res);
+                },
+                fail: function () {
+                  // fail
+                  wx.showToast({
+                    title: '网络异常！',
+                    duration: 2000
                   });
-                },2500);
-              },
-              fail: function(res) {
-                wx.showToast({
-                  title:res,
-                  duration:3000
-                })
-              }
-            })
-          }else{
-            wx.showToast({
-              title: res.data.err,
-              duration: 2000
-            });
-          }
-        },
-        fail: function() {
-          // fail
+                }
+              })
+              setTimeout(function(){
+                wx.navigateTo({
+                  url: '../user/dingdan?currentTab=1&otype=deliver',
+                });
+              },2500);
+            },
+            fail: function(res) {
+              wx.showToast({
+                title:res,
+                duration:3000
+              })
+            }
+          })
+        }else{
           wx.showToast({
-            title: '网络异常！err:wxpay',
+            title: res.data.err,
             duration: 2000
           });
         }
-      })
+      },
+      fail: function() {
+        // fail
+        wx.showToast({
+          title: '网络异常！err:wxpay',
+          duration: 2000
+        });
+      }
+    })
   },
 
 

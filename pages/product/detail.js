@@ -67,7 +67,7 @@ Page({
           WxParse.wxParse('content', 'html', content, that, 3);
           that.setData({
             itemData: pro,
-            kjPer: (100 - Math.round(pro.kjPrice / (pro.price - pro.kj_lowprice) * 10000) / 100.00) + "%",
+            kjPer: (100 - Math.round((pro.price - pro.kjPrice) / (pro.price - pro.kj_lowprice) * 10000) / 100.00) + "%",
             kjOne: pro.log ? pro.log[0] : {},
             kjUser: pro.log ? pro.log : [],
             kjType:pro.kjType,

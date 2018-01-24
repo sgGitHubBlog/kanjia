@@ -199,7 +199,7 @@ onLoad:function(options){
 },
 
 onShow:function(){
-  this.loadProductData();
+  //this.loadProductData();
 },
 
 removeShopCard:function(e){
@@ -258,6 +258,7 @@ loadProductData:function(){
       },
       success: function (res) {
         //--init data
+        console.log(res);
         var cart = res.data.cart;
         that.setData({
           carts:cart,

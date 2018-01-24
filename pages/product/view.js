@@ -201,7 +201,9 @@ Page({
         //--init data 
         var status = res.data.status;
         if (status == 1) {
+          
           var pro = res.data.pro;
+          console.log(pro);
           var content = pro.content;
           //that.initProductData(data);
           WxParse.wxParse('content', 'html', content, that, 3);
@@ -212,7 +214,7 @@ Page({
             commodityAttr: res.data.commodityAttr,
             attrValueList: res.data.attrValueList,
             kjPrice: pro.price,
-            kjPer: (100-Math.round(pro.cost / (pro.price - pro.kj_lowprice) * 10000) / 100.00) + "%"
+            kjPer: (100 - Math.round((pro.price - pro.cost) / (pro.price - pro.kj_lowprice) * 10000) / 100.00) + "%"
           });
           that.countdown();
         } else {
@@ -524,6 +526,7 @@ Page({
         uid: app.d.userId,
         pid: that.data.productId,
         num: that.data.buynum,
+        openid: app.globalData.userInfo.openid
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'

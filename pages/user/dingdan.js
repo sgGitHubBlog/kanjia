@@ -293,6 +293,7 @@ loadReturnOrderList:function(){
       });
       return false;
     }
+    //console.log(app);return;
     wx.request({
       url: app.d.ceshiUrl + '/Api/Wxpay/wxpay',
       data: {
@@ -305,6 +306,7 @@ loadReturnOrderList:function(){
         'Content-Type': 'application/x-www-form-urlencoded'
       }, // 设置请求的 header
       success: function (res) {
+        console.log(res);
         if (res.data.status == 1) {
           var order = res.data.arr;
           wx.requestPayment({
@@ -318,6 +320,33 @@ loadReturnOrderList:function(){
                 title: "支付成功!",
                 duration: 2000,
               });
+              //发送订单信息模板
+              var msgTplUrl = app.d.ceshiUrl + '/Api/Wxpay/getmsgs';
+              wx.request({
+                url: msgTplUrl,
+                method: 'post',
+                data: {
+                  tplId: 'CyGsQ2XQFwxESw0u286oqZL9Q4vYEkdpnpv91rYMxtU',
+                  order_sn: order_sn,
+                  pay_sn: order.pay_sn,
+                  openid: app.globalData.userInfo.openid
+                },
+                header: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                success: function (res) {
+                  //--init data
+                  console.log(res);
+                },
+                fail: function () {
+                  // fail
+                  wx.showToast({
+                    title: '网络异常！',
+                    duration: 2000
+                  });
+                }
+              })
+
               setTimeout(function () {
                 wx.navigateTo({
                   url: '../user/dingdan?currentTab=1&otype=deliver',

@@ -1,6 +1,6 @@
 <!--pay.wxml-->
 <view class="w100">
-		<view class="p_all bg_white df item" wx:for="{{productData}}">
+		<view class="p_all bg_white df item" wx:for="{{productData}}" wx:key=''>
 			<view class="cp_photo">			
 				<image src="{{item.photo_x}}"></image>
 			</view>
@@ -39,7 +39,7 @@
 <!--设置监听器，当点击radio时调用-->
 <radio-group bindchange="listenerRadioGroup" class="hui">
 <!--label通常与radio和checkbox结合使用-->
-  <label style="display: flex" wx:for="{{vou}}" class="xuan" bindtap="getvou" data-id="{{item.vid}}" data-price="{{item.amount}}">
+  <label style="display: flex" wx:for="{{vou}}" wx:key='' class="xuan" bindtap="getvou" data-id="{{item.vid}}" data-price="{{item.amount}}">
   <radio value="{{item.vid}}" />满{{item.full_money}}立减{{item.amount}}元
  </label>
  <label style="display: flex" class="xuan" bindtap="getvou" data-id="0" data-price="0">
@@ -66,8 +66,11 @@
 				<button class="wx_pay_submit" type="primary" id="wxPay" formType="submit" >微信支付</button>
 				<button class="xx_pay_submit" type="default" id="xxPay" formType="submit" >线下支付</button>
 			</navigator> -->
-			<button class="wx_pay_submit" type="primary" id="wxPay" disabled="{{btnDisabled}}" formType="submit" bindtap="createProductOrderByWX">微信支付</button>
-			<button class="xx_pay_submit" type="default" id="xxPay" disabled="{{btnDisabled}}" formType="submit" bindtap="createProductOrderByXX">线下支付</button>
+      <!-- <form bindsubmit="createProductOrderByWX" report-submit='true' > -->
+        <!-- <button class="wx_pay_submit" form-type="submit" type="primary" id="wxPay" disabled="{{btnDisabled}}">微信支付</button> -->
+         <button class="wx_pay_submit" form-type="submit" type="primary" id="wxPay" disabled="{{btnDisabled}}" bindtap="createProductOrderByWX">微信支付</button> 
+        <!-- <button class="xx_pay_submit" type="default" id="xxPay" disabled="{{btnDisabled}}" formType="submit" bindtap="createProductOrderByXX">线下支付</button> -->
+      <!-- </form> -->
 			
 		</view>
 	</view>
