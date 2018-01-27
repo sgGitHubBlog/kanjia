@@ -115,9 +115,9 @@ button.bg_no{content: none !important;line-height:100rpx;}
 .p_all{ padding: 3%;}
 
 /*边框*/
-.bte{border-top:solid 1px #eee;}
-.bbe{border-bottom: solid 1px #eee;}
-.bre{ border-right: 1px solid #eee}
+.bte_dash{border-top:dashed 1px #eee;}
+.bbe_dash{border-bottom: dashed 1px #eee;}
+.bre_dash{ border-right: 1px dashed #eee}
 
 /*浮动*/
 .fl_l{ float: left;}
@@ -236,6 +236,7 @@ background-color:#d9002f;
   line-height: 16px;
   color:#999;
   font-weight: 100;
+  position:initial;
 }
 
 .bigWrap{ 
@@ -244,8 +245,8 @@ background-color:#d9002f;
 
 .com-widget-goTop { 
   position: fixed; 
-  bottom: 125px; 
-  right: 10px; 
+  bottom: 75px; 
+  right: 15px; 
   background: #fff; 
   border-radius: 50%; 
   overflow: hidden; 
@@ -265,4 +266,8 @@ background-color:#d9002f;
   margin-top:2px;
   height:20px;
   transform: rotate(-180deg)
+}
+
+.fw_bold{
+  font-weight: bold
 }

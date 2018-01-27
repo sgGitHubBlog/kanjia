@@ -2,13 +2,6 @@ var app = getApp();
 
 Page({
   data: {
-    imgUrls: [{
-      'photo': '/test/banner_01.jpg'
-    }, {
-      'photo': '/test/banner_02.jpg'
-    }, {
-      'photo': '/test/banner_01.jpg'
-    }],
     indicatorDots: false,
     autoplay: true,
     interval: 5000,
@@ -18,12 +11,7 @@ Page({
     proCat: [],
     page: 2,
     index: 2,
-    brand: [],
-    // 滑动
-    imgUrl: [],
-    kbs: [],
-    lastcat: [],
-    course: [],
+    brand: []
   },
 
   //点击加载更多
@@ -130,43 +118,6 @@ Page({
         // 分享失败
       }
     }
-  },
-  onPullDownRefresh: function(){
-    //下拉刷新
-    var that = this;
-    wx.request({
-      url: app.d.ceshiUrl + '/Api/Index/index',
-      method: 'post',
-      data: {},
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res) {
-        wx.stopPullDownRefresh();
-        console.log(res);
-        var ggtop = res.data.ggtop;
-        var procat = res.data.procat;
-        var prolist = res.data.prolist;
-        var brand = res.data.brand;
-        var course = res.data.course;
-        //that.initProductData(data);
-        that.setData({
-          imgUrls: ggtop ? ggtop : that.getData('imgUrls'),
-          proCat: procat,
-          productData: prolist,
-          brand: brand,
-          course: course
-        });
-        //endInitData
-      },
-      fail: function (e) {
-        wx.stopPullDownRefresh();
-        wx.showToast({
-          title: '网络异常！',
-          duration: 2000
-        });
-      },
-    })
   }
 
 });

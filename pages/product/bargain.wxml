@@ -2,7 +2,6 @@
 <scroll-view class="bigWrap" scroll-y="true" scroll-top="{{scrollTop}}"   bindscroll="scroll" bindscrolltolower= "scrolltolower" style="position: absolute; left: 0; top:0; bottom: 0; right: 0;">
 <!--内容开始-->
 <view class="cont">
-  <!--<image class="tp_image" src="{{itemData.photo_d}}"></image>-->
   <swiper style="height:700rpx" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerItem}}" wx:key="key">
       <swiper-item>
@@ -17,19 +16,17 @@
       <span class="gmx">原价：¥{{itemData.price}}</span>
       <span class="c6 fl_r font_14" style='color:#ccc'>剩余：{{itemData.num}}</span>
     </view>
-    <!-- <view class="font_14 c6">品牌：{{itemData.brand}}</view>
-    <view class="font_14 c6">支付：微信支付</view> -->
   </view>
-  <view class="line w100 fl_l">
-    <view class="w33 fl_l tc">
+  <view class="line w100 fl_l bbe_dash">
+    <view class="fl_l tc renshu bre_dash">
       <view class='tc f_cheng font_16'>{{itemData.broTotal}}</view>
       <view class='tc iconfont font_14'>人查看</view>
     </view>
-    <view class="w33 fl_l tc">
+    <view class="fl_l tc renshu bre_dash">
       <view class='tc f_cheng font_16'>{{itemData.barTotal}}</view>
       <view class='tc iconfont font_14'>人参与</view>
     </view>
-    <view class="w33 fl_l tc">
+    <view class="fl_l tc renshu">
       <view class='tc f_cheng font_16'>{{itemData.logTotal}}</view>
       <view class='tc iconfont font_14'>人帮砍</view>
     </view>
@@ -83,7 +80,7 @@
 </view>
 
 <!--图文详情头部-->
-<view>
+<view style="margin-bottom:70px;">
   <view class="swiper-tab">
     <view class="swiper-tab-list" bindtap="swichNav">商品详情</view>
   </view>
@@ -109,23 +106,24 @@
   
 <!---底部开始-->
 <view class="footfixed tc">
-  
   <view class="fl_l w100">
-    <view wx:if="{{!helpTaStatus}}" class="fl_l w50 h50 " open-type="share">
+    <view wx:if="{{!helpTaStatus}}" class="fl_l w100" open-type="share">
       <button wx:if="{{kjType}}" class="w100 fl_l bg_no btn_no" open-type="share">
         <view class="fl_l w100"><image class="icon" src='/images/icons/faqi.png'></image></view>
         <view class="icon_title w100">喊人砍价</view>
       </button>
-      <view wx:if="{{!kjType}}" class="w100 fl_l h50" bindtap="helpTa" data-type="helpMe">
-        <view class="fl_l w100"><image class="icon" src='/images/icons/faqi.png'></image></view>
-        <view class="icon_title w100">发起砍价</view>
-      </view>
+      <form bindsubmit='helpTa' data-type="helpMe" report-submit='true'>
+        <button class='button w100 fl_l' wx:if="{{!kjType}}" form-type="submit">
+          <view class="fl_l w100"><image class="icon" src='/images/icons/faqi.png'></image></view>
+          <view class="icon_title w100">发起砍价</view>
+        </button>
+      </form>
     </view>
     <!-- <view class="w33 fl_l h50 bg_cheng white" bindtap="addShopCart" data-type="addcart">加入购物车</view> -->
-    <view class="h50 w50 fl_l" bindtap="setModalStatus" data-status="1">
+    <!--<view class="h50 w50 fl_l" bindtap="setModalStatus" data-status="1">
       <view class="fl_l w100"><image class="icon" src='/images/icons/goumai.png'></image></view>
       <view class="icon_title w100">立刻购买</view>
-    </view>
+    </view>-->
   </view>
 </view>
 

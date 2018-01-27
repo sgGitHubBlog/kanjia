@@ -137,9 +137,7 @@ text-align: center
 .c3{
   font-size: 28rpx;
 }
-.fl_l{
-  font-weight: 700
-}
+
 .footc{
   display:block;
   position:fixed;
@@ -439,4 +437,8 @@ button.bg_no{
 }
 .fw_100{
   font-weight: 100;
+}
+.xianjia{
+  color:#dd2727;
+  text-align: center;
 }

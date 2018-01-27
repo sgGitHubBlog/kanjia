@@ -53,11 +53,11 @@
   display:-webkit-box;
   -webkit-line-clamp:2;
   -webkit-box-orient:vertical;
-  padding: 5% 5% 0 5%;
+  padding: 28rpx 5% 0 5%;
   font-weight: 700
 }
 .gmxx{
-  padding:1% 5% 5% 5%;
+  padding:1% 5% 28rpx 5%;
   line-height: 25px;
 }
 .gmxx .jiage{
@@ -432,11 +432,10 @@ button.bg_no{
   width:100%;
   display: inline-block;
   border-top: 2px solid #f85;
-  padding-top:20rpx;
 }
 .kj_time{
   display: inline-block;
-  margin: 40rpx 5%;
+  margin: 28rpx 5%;
   line-height: 70rpx;
   width:90%;
 }
@@ -453,4 +452,15 @@ button.bg_no{
 
 .blank{
   color:#000;
+}
+
+.renshu{
+  padding: 28rpx 0;
+  width: 33%
+}
+.button{
+  position: initial;
+  background-color: #fff;
+  border: 0;
+  border-radius: 0;
 }

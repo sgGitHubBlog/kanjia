@@ -58,7 +58,7 @@ Page( {
 
       ctx.fill()
       ctx.draw()
-         
+
   },
   onShow:function(){
     this.loadOrderStatus();
@@ -109,5 +109,5 @@ Page( {
         // 分享失败
       }
     }
-  }
+  },
 })

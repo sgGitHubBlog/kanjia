@@ -8,7 +8,15 @@
     position: fixed;
     top: 0;  
     z-index: 999;
-    }  
+}
+.submitOrder button{
+  border: 0;
+  position: initial;
+  background: none;
+  padding: 0 !important;
+  background-color:#fff;
+  line-height: inherit;
+}  
 .swiper-tab-list{  
   font-size: 12px;  
   display: inline-block;  

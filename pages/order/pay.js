@@ -137,7 +137,11 @@ Page({
           }
           if(data.arr.pay_type == 'weixin'){
             //微信支付
-            that.wxpay(data.arr, formId);
+            if (parseFloat(that.data.total) > 0){
+              that.wxpay(data.arr, formId);
+            }else{
+              that.createOrder(data.arr, formId);
+            }
           }
         }else{
           wx.showToast({
@@ -154,7 +158,43 @@ Page({
       }
     });
   },
-  
+  createOrder: function (order, formId){
+    wx.showToast({
+      title: "购买成功!",
+      duration: 2000,
+    });
+    //发送订单信息模板
+    var msgTplUrl = app.d.ceshiUrl + '/Api/Wxpay/getmsgs';
+    wx.request({
+      url: msgTplUrl,
+      method: 'post',
+      data: {
+        tplId: 'CyGsQ2XQFwxESw0u286oqZL9Q4vYEkdpnpv91rYMxtU',
+        order_sn: order.order_sn,
+        pay_sn: formId,   //测试该方式可以
+        openid: app.globalData.userInfo.openid
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        //--init data
+        console.log(res);
+      },
+      fail: function () {
+        // fail
+        wx.showToast({
+          title: '网络异常！',
+          duration: 2000
+        });
+      }
+    })
+    setTimeout(function () {
+      wx.navigateTo({
+        url: '../user/dingdan?currentTab=1&otype=deliver',
+      });
+    }, 2500);
+  },
   //调起微信支付
   wxpay: function (order, formId){
     var order_sn = order.order;
@@ -172,14 +212,14 @@ Page({
       success: function(res){
         console.log(res);
         if(res.data.status==1){
-          var order = res.data.arr;
+          var arr = res.data.arr;
           console.log(order);
           wx.requestPayment({
-            timeStamp: order.timeStamp,
-            nonceStr: order.nonceStr,
-            package: order.package,
+            timeStamp: arr.timeStamp,
+            nonceStr: arr.nonceStr,
+            package: arr.package,
             signType: 'MD5',
-            paySign: order.paySign,
+            paySign: arr.paySign,
             success: function(res){
               console.log(formId);
               wx.showToast({
@@ -194,8 +234,9 @@ Page({
                 data: {
                   tplId: 'CyGsQ2XQFwxESw0u286oqZL9Q4vYEkdpnpv91rYMxtU',
                   order_sn: order.order_sn,
+                  order_id: order.order_id,
                   //pay_sn: formId,   //测试该方式可以
-                  pay_sn: order.pay_sn,
+                  pay_sn: arr.pay_sn,
                   openid: app.globalData.userInfo.openid
                 },
                 header: {

@@ -7,9 +7,6 @@ Page({
   firstIndex: -1,
   data: {
     bannerApp: true,
-    winWidth: 0,
-    winHeight: 0,
-    currentTab: 0, //tab切换  
     productId: 0,
     itemData: {},
     bannerItem: [],
@@ -191,38 +188,6 @@ Page({
         });
       }
     }.bind(this), 200)
-  },
-  bindChange: function(e) { //滑动切换tab 
-    var that = this;
-    that.setData({
-      currentTab: e.detail.current
-    });
-  },
-  initNavHeight: function() { ////获取系统信息
-    var that = this;
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          winWidth: res.windowWidth,
-          winHeight: res.windowHeight
-        });
-      }
-    });
-  },
-  bannerClosed: function() {
-    this.setData({
-      bannerApp: false,
-    })
-  },
-  swichNav: function(e) { //点击tab切换
-    var that = this;
-    if (that.data.currentTab === e.target.dataset.current) {
-      return false;
-    } else {
-      that.setData({
-        currentTab: e.target.dataset.current
-      })
-    }
   },
   onShareAppMessage: function(res) {
     var that = this;

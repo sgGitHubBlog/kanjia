@@ -9,7 +9,7 @@
 		           {{item.name}}
 		    </view>
         <text class="gm_ovh_1h red pt10">当前价：¥{{item.price}}</text>
-			  <text class="gmx gm_ovh_1h red pt10">原价：¥{{item.cost}}</text>
+			  <text class="gmx gm_ovh_1h red pt10">原价：¥{{item.y_price}}</text>
 			  <text class="gm_ovh_1h pt10">数量：{{item.num}}</text>
         <text class="gm_ovh_1h pt10">运费：¥{{item.kj_postage}}</text>
 			</view>
@@ -66,12 +66,11 @@
 				<button class="wx_pay_submit" type="primary" id="wxPay" formType="submit" >微信支付</button>
 				<button class="xx_pay_submit" type="default" id="xxPay" formType="submit" >线下支付</button>
 			</navigator> -->
-      <!-- <form bindsubmit="createProductOrderByWX" report-submit='true' > -->
-        <!-- <button class="wx_pay_submit" form-type="submit" type="primary" id="wxPay" disabled="{{btnDisabled}}">微信支付</button> -->
-         <button class="wx_pay_submit" form-type="submit" type="primary" id="wxPay" disabled="{{btnDisabled}}" bindtap="createProductOrderByWX">微信支付</button> 
+       <form bindsubmit="createProductOrderByWX" report-submit='true' > 
+         <button class="wx_pay_submit" form-type="submit" type="primary" id="wxPay" disabled="{{btnDisabled}}">{{total==0?'提交订单':'微信支付'}}</button> 
+         <!-- <button class="wx_pay_submit" form-type="submit" type="primary" id="wxPay" disabled="{{btnDisabled}}" bindtap="createProductOrderByWX">微信支付</button>  -->
         <!-- <button class="xx_pay_submit" type="default" id="xxPay" disabled="{{btnDisabled}}" formType="submit" bindtap="createProductOrderByXX">线下支付</button> -->
-      <!-- </form> -->
-			
+       </form>
 		</view>
 	</view>
 

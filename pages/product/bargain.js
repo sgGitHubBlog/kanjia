@@ -7,14 +7,10 @@ Page({
   firstIndex: -1,
   data: {
     bannerApp: true,
-    winWidth: 0,
-    winHeight: 0,
-    currentTab: 0, //tab切换  
     productId: 0,
     openId: '',
     itemData: {},
     bannerItem: [],
-    buynum: 1,
     // 产品图片轮播
     indicatorDots: false,
     autoplay: true,
@@ -37,8 +33,7 @@ Page({
     countDownHour: 0,
     countDownMinute: 0,
     countDownSecond: 0,
-    bargain_time:'',
-    scrollTop: 0
+    bargain_time:''
   },
   //返回顶部
   goTop: function (e) {
@@ -57,56 +52,6 @@ Page({
         floorstatus: false
       });
     }
-  },
-  //购买弹窗
-  setModalStatus: function (e) {
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-
-    this.animation = animation
-    animation.translateY(300).step();
-
-    this.setData({
-      animationData: animation.export()
-    })
-
-    if (e.currentTarget.dataset.status == 1) {
-      this.setData({
-        showModalStatus: true
-      });
-    }
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation
-      })
-      if (e.currentTarget.dataset.status == 0) {
-        this.setData({
-          showModalStatus: false
-        });
-      }
-    }.bind(this), 200)
-  },
-  // 加减
-  changeNum: function (e) {
-    var that = this;
-    if (e.target.dataset.alphaBeta == 0) {
-      if (this.data.buynum <= 1) {
-        buynum: 1
-      }
-      else {
-        this.setData({
-          buynum: this.data.buynum - 1
-        })
-      };
-    } else {
-      this.setData({
-        buynum: this.data.buynum + 1
-      })
-    };
   },
   // 传值
   onLoad: function (option) {
@@ -228,81 +173,21 @@ Page({
     data.VedioImagePath = app.d.hostVideo + '/' + data.VedioImagePath;
     data.videoPath = app.d.hostVideo + '/' + data.videoPath;
   },
-  addShopCart: function (e) { //添加到购物车
-    var that = this;
-    wx.request({
-      url: app.d.ceshiUrl + '/Api/Shopping/add',
-      method: 'post',
-      data: {
-        uid: app.d.userId,
-        pid: that.data.productId,
-        num: that.data.buynum,
-        openid: app.globalData.userInfo.openid
-      },
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res) {
-        // //--init data        
-        var data = res.data;
-        if (data.status == 1) {
-          var ptype = e.currentTarget.dataset.type;
-          if (ptype == 'buynow') {
-            wx.redirectTo({
-              url: '../order/pay?cartId=' + data.cart_id
-            });
-            return;
-          } else {
-            wx.showToast({
-              title: '加入购物车成功',
-              icon: 'success',
-              duration: 2000
-            });
-          }
-        } else {
-          if (data.status == 99){
-            wx.showToast({
-              title: data.err,
-              duration: 2000,
-              success:function(){
-                setTimeout(function () {
-                  wx.reLaunch({
-                    url: '/pages/cart/cart',
-                    success: function (res) {
-                      console.log(res);
-                    }
-                  });
-                },1000)
-              }
-            });
-            
-          }else{
-            wx.showToast({
-              title: data.err,
-              duration: 2000
-            });
-          }
-        }
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 2000
-        });
-      }
-    });
-  },
   helpTa: function (e) { //帮他砍
     var that = this;
     var title = "";
+    var formId = e.detail.formId;
     wx.request({
       url: app.d.ceshiUrl + '/Api/kanjia/simplekan',
-      method: 'post',
+      method: 'POST',
       data: {
         fu_id: app.globalData.userInfo.openid,
         kj_id: that.data.productId,
         mu_id: app.globalData.userInfo.openid,
+        username: app.globalData.userInfo.nikeName,
+        dijia: that.data.itemData.kj_lowprice,
+        product_name: that.data.itemData.name,
+        
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -317,6 +202,47 @@ Page({
             kjPrice: that.data.itemData.price - res.data.price
           });
         }
+        //发送通知消息
+        console.log(res);
+        var item = {
+          keyword1: {
+            value: app.globalData.userInfo.nickName,
+            color: '#dd2727',
+          },
+          keyword2: {
+            value: '您已经成功发起砍价，砍至' + parseFloat(that.data.itemData.kj_lowprice) + '元即为砍价成功，点击进入分享给您的好友，让TA们帮您砍价吧',
+            color: '#dd2727',
+          },
+          keyword3: {
+            value: that.data.itemData.name,
+            color: '#dd2727',
+          },
+          keyword4: {
+            value: res.data.addtime,
+            color: '#dd2727',
+          }
+        };
+        wx.request({
+          url: app.d.ceshiUrl + '/Api/Kanjia/sendMsg',
+          method: 'POST',
+          data: {
+            tpl:app.d.tpl.tpl_2,
+            openid: app.globalData.userInfo.openid,
+            page: '/pages/product/bargain?productId=' + that.data.productId,
+            formId: formId,
+            keyword: JSON.stringify(item),
+            //bigField:'keyword4.DATA'
+          },
+          header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          success: function (res) {
+            console.log(res);
+          },
+          fail:function(res){
+            console.log(res);
+          }
+        })
         if (res.data.status == 0) {
           wx.showToast({
             title: title + res.data.price,
@@ -339,38 +265,6 @@ Page({
         });
       }
     });
-  },
-  bindChange: function (e) { //滑动切换tab 
-    var that = this;
-    that.setData({
-      currentTab: e.detail.current
-    });
-  },
-  initNavHeight: function () { ////获取系统信息
-    var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          winWidth: res.windowWidth,
-          winHeight: res.windowHeight
-        });
-      }
-    });
-  },
-  bannerClosed: function () {
-    this.setData({
-      bannerApp: false,
-    })
-  },
-  swichNav: function (e) { //点击tab切换
-    var that = this;
-    if (that.data.currentTab === e.target.dataset.current) {
-      return false;
-    } else {
-      that.setData({
-        currentTab: e.target.dataset.current
-      })
-    }
   },
   onShareAppMessage: function (res) {
     var that = this;

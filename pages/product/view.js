@@ -9,9 +9,6 @@ Page({
   data: {
     userInfo:[],
     bannerApp: true,
-    winWidth: 0,
-    winHeight: 0,
-    currentTab: 0, //tab切换  
     productId: 0,
     openId: '',
     itemData: {},
@@ -478,45 +475,6 @@ Page({
     data.videoPath = app.d.hostVideo + '/' + data.videoPath;
   },
 
-  //添加到收藏
-  addFavorites: function (e) {
-    var that = this;
-    wx.request({
-      url: app.d.ceshiUrl + '/Api/Product/col',
-      method: 'post',
-      data: {
-        uid: app.d.userId,
-        pid: that.data.productId,
-      },
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res) {
-        // //--init data        
-        var data = res.data;
-        if (data.status == 1) {
-          wx.showToast({
-            title: '操作成功！',
-            duration: 2000
-          });
-          //变成已收藏，但是目前小程序可能不能改变图片，只能改样式
-          that.data.itemData.isCollect = true;
-        } else {
-          wx.showToast({
-            title: data.err,
-            duration: 2000
-          });
-        }
-      },
-      fail: function () {
-        // fail
-        wx.showToast({
-          title: '网络异常！',
-          duration: 2000
-        });
-      }
-    });
-  },
   addShopCart: function (e) { //添加到购物车
     var that = this;
     wx.request({
@@ -679,38 +637,6 @@ Page({
         });
       }
     }.bind(this), 200)
-  },
-  bindChange: function (e) { //滑动切换tab 
-    var that = this;
-    that.setData({
-      currentTab: e.detail.current
-    });
-  },
-  initNavHeight: function () { ////获取系统信息
-    var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          winWidth: res.windowWidth,
-          winHeight: res.windowHeight
-        });
-      }
-    });
-  },
-  bannerClosed: function () {
-    this.setData({
-      bannerApp: false,
-    })
-  },
-  swichNav: function (e) { //点击tab切换
-    var that = this;
-    if (that.data.currentTab === e.target.dataset.current) {
-      return false;
-    } else {
-      that.setData({
-        currentTab: e.target.dataset.current
-      })
-    }
   },
   onShareAppMessage: function (res) {
     var that = this;

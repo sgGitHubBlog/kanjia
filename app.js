@@ -8,7 +8,12 @@ App({
     appId:"",
     appKey:"",
     ceshiUrl:'https://kanjia.jiajuwz.com/index.php',
-    msgList:[]
+    msgList:[],
+    tpl:{
+      tpl_1:'CyGsQ2XQFwxESw0u286oqZL9Q4vYEkdpnpv91rYMxtU',   //支付通知
+      tpl_2: 'V_929OvjhZCxLqlm7i5DFAdqbdDhqEABqYOaLSMIrQ8',  //发起砍价通知
+      tpl_3: 'DZ2S6mB3h7136Xyq1lWsVpgp05EKrmBj2tVSLgYEcsk',  //砍价进度通知
+    }
   },
   onLaunch: function () {
     //调用API从本地缓存中获取数据
