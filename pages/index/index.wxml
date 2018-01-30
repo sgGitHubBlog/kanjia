@@ -4,8 +4,8 @@
   <template is="swiper" data="{{indicatorDots:indicatorDots,autoplay:autoplay,interval:interval,duration:duration,imgUrls:imgUrls}}" />
 
   <view class="cont">
-     <!-- <navigator class="pr" url="../product/detail?productId={{item.id}}&token=oiQMA0ZkdvRVecNz4r_nLTukoMaI" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">  -->
-     <navigator class="pr" url="../product/bargain?productId={{item.id}}" hover-class="changestyle" wx:for="{{productData}}" wx:key="key"> 
+       <navigator class="pr" url="../product/detail?productId={{item.id}}&token=oiQMA0akVrNjiypMDLOfcYrcIjmQ" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">   
+      <!-- <navigator class="pr" url="../product/bargain?productId={{item.id}}" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">   -->
       <view class="shengyu">剩余：{{item.num}} {{item.company}}</view> 
        <image class="photo" src="{{item.photo_x}}"></image> 
       <view class="title">【{{item.bname}}】{{item.name}}</view>

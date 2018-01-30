@@ -8,10 +8,10 @@ Page({
     duration: 1000,
     circular: true,
     productData: [],
-    proCat: [],
+    //proCat: [],
     page: 2,
     index: 2,
-    brand: []
+    //brand: []
   },
 
   //点击加载更多
@@ -26,7 +26,6 @@ Page({
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log(res);
         var prolist = res.data.prolist;
         if (prolist == '') {
           wx.showToast({
@@ -71,7 +70,11 @@ Page({
       duration: e.detail.value
     })
   },
-
+  onReady:function(){
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
+  },
   onLoad: function (options) {
     var that = this;
     wx.request({
@@ -82,23 +85,26 @@ Page({
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log(res);
         var ggtop = res.data.ggtop;
-        var procat = res.data.procat;
+        //var procat = res.data.procat;
         var prolist = res.data.prolist;
-        var brand = res.data.brand;
-        var course = res.data.course;
+        //var brand = res.data.brand;
+        //var course = res.data.course;
         //that.initProductData(data);
         that.setData({
-          imgUrls: ggtop ? ggtop : that.getData('imgUrls'),
-          proCat: procat,
+          imgUrls: ggtop,
+          //proCat: procat,
           productData: prolist,
-          brand: brand,
-          course: course
+          //brand: brand,
+          //course: course
         });
+        
         //endInitData
       },
       fail: function (e) {
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 2000)
         wx.showToast({
           title: '网络异常！',
           duration: 2000

@@ -21,6 +21,10 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs);
     //login
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     this.getUserInfo();
   },
   getUserInfo:function(cb){
@@ -131,15 +135,6 @@ App({
       },
     });
   },
-  getOrBindTelPhone:function(returnUrl){
-    var user = this.globalData.userInfo;
-    if(!user.tel){
-      wx.navigateTo({
-        url: 'pages/binding/binding'
-      });
-    }
-  },
-
   globalData:{
     userInfo:null
   }

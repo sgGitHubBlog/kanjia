@@ -1,112 +1,108 @@
 <!--pages/index/detail.wxml-->
-<scroll-view class="bigWrap" scroll-y="true" scroll-top="{{scrollTop}}"   bindscroll="scroll" bindscrolltolower= "scrolltolower" style="position: absolute; left: 0; top:0; bottom: 0; right: 0;">
-
 <!--内容开始-->
-<view class="cont">
-  <swiper style="height:700rpx" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{bannerItem}}" wx:key="key">
-      <swiper-item>
-        <image src="{{item}}" class="slide-image" />
-      </swiper-item>
-    </block>
-  </swiper>
-  <view class="title">【{{itemData.brand}}】{{itemData.name}}</view>
-  <view class="gmxx">
-    <view>
-      <span class="jiage">砍价后：¥{{itemData.kjPrice}}</span>
-      <span class="gmx">原价：¥{{itemData.price}}</span>
-    </view>
-    <view>
-      <span class="font_12">当前库存：{{itemData.num}}<text class='f_cheng'>【库存为0时，所有砍价停止】</text></span>
-    </view>
-    <!-- <view class="font_14 c6">品牌：{{itemData.brand}}</view>
-    <view class="font_14 c6">支付：微信支付</view> -->
-  </view>
-  <view class="gmxx">
-    <view class="font_14 c6" style='line-height:37px;'>
-      <image class="fl_l userinfo-avatar" src='{{userInfo.avatarUrl}}'></image>
-      <text class="fl_l">砍价进度：原价为{{itemData.price}},已砍至{{itemData.kjPrice==itemData.kj_lowprice?'最低':''}}{{itemData.kjPrice}}</text>
-    </view>
-    <view class="bg">
-        <view class="per" style="width:{{kjPer}};"></view>
-    </view>
-    <view>
-      <view class='fl_l'>￥{{itemData.kj_lowprice}}</view>
-      <view class='fl_r'>￥{{itemData.price}}</view>
-    </view>
-    <view class='clear'></view>
-  </view>
-  <view class="gmxx">
-    <view class="font_14 c6">
-      <view>排行榜：</view>
-      <view class="kjUserList" bindtap="showKjUserList">
-        <image class="userinfo-avatar fl_l" src="{{kjOne.picurl}}" background-size="cover"></image>{{kjOne.name}}
-        <span class="fl_r">
-          砍掉{{kjOne.price}}
-          <icon class="iconfont icon-gengduo fl_r"></icon>
+<view class='page'>
+  <view class="cont">
+    <swiper style="height:700rpx" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{bannerItem}}" wx:key="key">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="title">【{{itemData.brand}}】{{itemData.name}}</view>
+    <view class="gmxx">
+      <view>
+        <span class="jiage">砍价后：¥{{itemData.kjPrice}}</span>
+        <span class="gmx">原价：¥{{itemData.price}}</span>
+      </view>
+      <view>
+        <span class="font_12">当前库存：{{itemData.num}}
+          <text class='f_cheng'>【库存为0时，所有砍价停止】</text>
         </span>
-        <view class="clear"></view>
+      </view>
+    </view>
+    <view class='textInfo'>
+      {{itemData.username}}正在参与【{{itemData.name}}】砍价活动，把价格砍到最低价格，TA就可以特惠抢购爱此商品哟！
+    </view>
+    <view class="gmxx">
+      <view class="bg">
+        <view class="per" style="width:{{kjPer}};"></view>
+      </view>
+      <view>
+        <view class='fl_l'>￥{{itemData.kj_lowprice}}</view>
+        <view class='fl_r'>￥{{itemData.price}}</view>
+      </view>
+      <view class='clear'></view>
+    </view>
+    <view class="gmxx">
+      活动结束倒计时：{{countDownDay}}天{{countDownHour}}小时{{countDownMinute}}分钟{{countDownSecond}}秒
+    </view>
+    <view class="gmxx">
+      <view class="font_14 c6">
+        <view>排行榜：</view>
+        <view class="kjUserList" bindtap="showKjUserList">
+          <image class="userinfo-avatar fl_l" src="{{kjOne.picurl}}" background-size="cover"></image>{{kjOne.name}}
+          <span class="fl_r">
+            砍掉{{kjOne.price}}
+            <icon class="iconfont icon-gengduo fl_r"></icon>
+          </span>
+          <view class="clear"></view>
+        </view>
       </view>
     </view>
   </view>
-</view>
 
 
-<!--砍价排行榜弹窗-->
-<view class="drawer_screen" bindtap="showKjUserList" data-status="0" wx:if="{{showKjModalStatus}}"></view>
-<view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showKjModalStatus}}">
-  <view class="close_icon" bindtap="showKjUserList" data-status="0">×</view>
-  <view class="drawer_attr_content">
-    <view class="user_list">
-      <view class="kjUserList" wx:for="{{kjUser}}">
+  <!--砍价排行榜弹窗-->
+  <view class="drawer_screen" bindtap="showKjUserList" data-status="0" wx:if="{{showKjModalStatus}}"></view>
+  <view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showKjModalStatus}}">
+    <view class="close_icon" bindtap="showKjUserList" data-status="0">×</view>
+    <view class="drawer_attr_content">
+      <view class="user_list">
+        <view class="kjUserList" wx:for="{{kjUser}}">
           <image class="userinfo-avatar fl_l" src="{{item.picurl}}" background-size="cover"></image>{{item.name}}
           <span class="fl_r">
             砍掉{{item.price}}
             <icon class="iconfont icon-gengduo fl_r"></icon>
           </span>
           <view class="clear"></view>
+        </view>
       </view>
     </view>
   </view>
-</view>
 
-<!--图文详情头部-->
-<view style="margin-bottom:50px;">
-  <view class="swiper-tab">
-    <view class="swiper-tab-list" bindtap="swichNav">商品详情</view>
-  </view>
-  
+  <!--图文详情头部-->
+  <view style="margin-bottom:50px;">
+    <view class="swiper-tab">
+      <view class="swiper-tab-list" bindtap="swichNav">商品详情</view>
+    </view>
     <!-- 图文详情 -->
-   
-      <import src="../../wxParse/wxParse.wxml" />
-      <view class="wxParse">
-       
-          <template is="wxParse" data="{{wxParseData:content.nodes}}" />
-       
-      </view>
-
-</view>
+    <import src="../../wxParse/wxParse.wxml" />
+    <view class="wxParse">
+      <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+    </view>
+  </view>
 
   <!---回到顶部-->
-    <view class="com-widget-goTop" bindtap="goTop" wx:if="{{floorstatus}}">
-          <view class="icon-gotop">
-            <icon type='download' size='20' color='rgba(0,0,0,0.48)' class="top-icon"></icon>
-            <view>顶部</view>
-          </view>
+  <view class="com-widget-goTop" bindtap="goTop" wx:if="{{floorstatus}}">
+    <view class="icon-gotop">
+      <icon type='download' size='20' color='rgba(0,0,0,0.48)' class="top-icon"></icon>
+      <view>顶部</view>
     </view>
+  </view>
 
-<!---底部开始-->
-<view class="footfixed tc">
-  
-  <view class="fl_l w100">
-    <view class="w50 fl_l h50 bg_green white" bindtap="helpTa" data-type="helpTa">帮Ta砍</view>
-    <!-- <view class="w33 fl_l h50 bg_cheng white" bindtap="addShopCart" data-type="addcart">加入购物车</view> -->
-    <view class="fl_l w50 h50 bg_red white" open-type="share">
-      <button wx:if="{{kjType}}" class="w100 fl_l bg_no white" open-type="share">喊人砍价</button>
-      <view wx:if="{{!kjType}}" class="w100 fl_l h50 bg_red white" bindtap="helpTa" data-type="helpMe">发起砍价</view>
+  <!---底部开始-->
+  <view class="footfixed tc">
+    <view class="fl_l w100 h50">
+      <!-- <form  bindsubmit='helpTa' class="w50 fl_l h50" report-submit='true'> -->
+        <button wx:if="{{!myBk}}" bindtap='helpTa' data-type='helpTa' class='helpTaBtn w50 fl_l h50 bg_green white'>
+          <view>帮Ta砍</view>
+        </button>
+      <!-- </form> -->
+      <view class="fl_l {{myBk?'w100':'w50'}} h50 bg_red white" open-type="share">
+        <button wx:if="{{kjType}}" class="w100 fl_l bg_no white" open-type="share">喊人砍价</button>
+          <view wx:if="{{!kjType}}" class="w100 fl_l h50 bg_red white" bindtap="helpTa" data-type="helpMe">我也参加</view>
+      </view>
     </view>
-    <!-- <view class="bg_red h50 white w50 fl_l" bindtap="setModalStatus" data-status="1">立刻购买</view> -->
   </view>
 </view>
-
-</scroll-view>

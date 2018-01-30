@@ -1,4 +1,7 @@
 /* pages/index/detail.wxss */
+.page{
+  background-color: #ccc;
+}
 .ad{
     width: 100%;
     background: rgba(0,0,0,.6);

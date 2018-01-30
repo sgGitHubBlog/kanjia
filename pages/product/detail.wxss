@@ -1,9 +1,11 @@
 /* pages/index/detail.wxss */
+.page{
+  background-color: #ccc;
+}
 .ad{
     width: 100%;
     background: rgba(0,0,0,.6);
     padding: 3% 0;
-    display: inline-table;
     position: fixed;
     z-index: 9999;
     display: none;
@@ -437,4 +439,20 @@ button.bg_no{
 }
 .wxParse-p .wxParse-img{
   width:100% !important;
+}
+.helpTaBtn{
+  font-size:14px;
+  color:#fff;
+  border:0;
+  position:initial;
+  height:100rpx;
+  line-height:100rpx;
+  padding:0;
+  border-radius: 0;
+}
+.textInfo{
+  font-size: 26rpx;
+  color: #fff;
+  background: #dd2727;
+  padding: 20rpx 5%;
 }

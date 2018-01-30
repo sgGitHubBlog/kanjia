@@ -4,7 +4,6 @@ var app = getApp();
 //引入这个插件，使html内容自动转换成wxml内容
 var WxParse = require('../../wxParse/wxParse.js');
 Page({
-  firstIndex: -1,
   data: {
     bannerApp: true,
     productId: 0,
@@ -25,19 +24,24 @@ Page({
     token: '',
     kjPer: '',
     kjUser: [],
-    kjType: ''
+    kjType: '',
+    myBk: false
   },
 
+  onReady:function(){},
   // 传值
   onLoad: function(option) {
-    //this.initNavHeight();
     var that = this;
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     that.setData({
       productId: option.productId,
       token: option.token
     });
     that.loadProductDetail(); //加载商品详情
-    wx.showShareMenu({withShareTicket: true})
+    //wx.showShareMenu({withShareTicket: true})
   },
   // 商品详情数据获取
   loadProductDetail: function(callback) {
@@ -60,7 +64,6 @@ Page({
         if (status == 1) {
           var pro = res.data.pro;
           var content = pro.content;
-          //that.initProductData(data);
           WxParse.wxParse('content', 'html', content, that, 3);
           that.setData({
             itemData: pro,
@@ -68,11 +71,19 @@ Page({
             kjOne: pro.log ? pro.log[0] : {},
             kjUser: pro.log ? pro.log : [],
             kjType:pro.kjType,
+            myBk:pro.myBk,
             bannerItem: pro.img_arr,
             // commodityAttr: res.data.commodityAttr,
             // attrValueList: res.data.attrValueList,
           });
+          that.countdown(pro.et_time);
+          setTimeout(function () {
+            wx.hideLoading()
+          }, 2000)
         } else {
+          setTimeout(function () {
+            wx.hideLoading()
+          }, 2000)
           wx.showToast({
             title: res.data.err,
             duration: 2000,
@@ -92,23 +103,62 @@ Page({
       },
     });
   },
-  initProductData: function(data) {
-    data["LunBoProductImageUrl"] = [];
+  // 砍价剩余时间  
+  countdown: function (time) {
+    var that = this;
+    var totalSecond = time - Date.parse(new Date()) / 1000;
 
-    var imgs = data.LunBoProductImage.split(';');
-    for (let url of imgs) {
-      url && data["LunBoProductImageUrl"].push(app.d.hostImg + url);
-    }
+    var interval = setInterval(function () {
+      // 秒数  
+      var second = totalSecond;
 
-    data.Price = data.Price / 100;
-    data.VedioImagePath = app.d.hostVideo + '/' + data.VedioImagePath;
-    data.videoPath = app.d.hostVideo + '/' + data.videoPath;
+      // 天数位  
+      var day = Math.floor(second / 3600 / 24);
+      var dayStr = day.toString();
+      if (dayStr.length == 1) dayStr = '0' + dayStr;
+
+      // 小时位  
+      var hr = Math.floor((second - day * 3600 * 24) / 3600);
+      var hrStr = hr.toString();
+      if (hrStr.length == 1) hrStr = '0' + hrStr;
+
+      // 分钟位  
+      var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
+      var minStr = min.toString();
+      if (minStr.length == 1) minStr = '0' + minStr;
+
+      // 秒位  
+      var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
+      var secStr = sec.toString();
+      if (secStr.length == 1) secStr = '0' + secStr;
+
+      this.setData({
+        countDownDay: parseInt(dayStr),
+        countDownHour: hrStr,
+        countDownMinute: minStr,
+        countDownSecond: secStr,
+      });
+      totalSecond--;
+      if (totalSecond < 0) {
+        clearInterval(interval);
+        wx.showToast({
+          title: '活动已结束',
+        });
+        this.setData({
+          countDownDay: '00',
+          countDownHour: '00',
+          countDownMinute: '00',
+          countDownSecond: '00',
+        });
+      }
+    }.bind(this), 1000);
   },
   helpTa: function(e) { //帮他砍
     var that = this;
     var title = "";
     var openid = that.data.token;
-    if (e.currentTarget.dataset.type == 'helpMe') {
+    //var formId = e.detail.formId;
+    if (e.target.dataset.type == 'helpMe') {
       title = "已砍";
       openid = app.globalData.userInfo.openid;
       that.setData({
@@ -132,6 +182,54 @@ Page({
         // //--init data
         if (res.data.status == 0) {
           that.loadProductDetail();
+          
+          //if (e.detail.target.dataset.type == 'helpTa'){
+              // var item = {
+              //   keyword1: {
+              //     value: that.data.itemData.name,
+              //     color: '#dd2727',
+              //   },
+              //   keyword2: {
+              //     value: '已有' + (that.data.kjUser.length + 1) + '人砍价',
+              //     color: '#dd2727',
+              //   },
+              //   keyword3: {
+              //     value: dateTime,
+              //     color: '#dd2727',
+              //   },
+              //   keyword4: {
+              //     value: that.data.itemData.price,
+              //     color: '#dd2727',
+              //   },
+              //   keyword5: {
+              //     value: that.data.itemData.kjPrice,
+              //     color: '#dd2727',
+              //   }
+              // };
+              // wx.request({
+              //   url: app.d.ceshiUrl + '/Api/Kanjia/sendMsg',
+              //   method: 'POST',
+              //   data: {
+              //     tpl: app.d.tpl.tpl_3,
+              //     //openid: that.data.token,
+              //     openid: 'oiQMA0XPD0UabCltWyO-T9yTYNdc',
+              //     page: '/pages/product/bargain?productId=' + that.data.itemData.id,
+              //     formId: formId,
+              //     keyword: JSON.stringify(item),
+              //     //bigField:'keyword4.DATA'
+              //   },
+              //   header: {
+              //     'Content-Type': 'application/x-www-form-urlencoded'
+              //   },
+              //   success: function (res) {
+              //     console.log(res);
+              //   },
+              //   fail: function (res) {
+              //     console.log(res);
+              //   }
+              // })
+          //}
+
           wx.showToast({
             title: title + res.data.price,
             icon: 'success',

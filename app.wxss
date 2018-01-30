@@ -151,9 +151,9 @@ button.bg_no{content: none !important;line-height:100rpx;}
   z-index:100;
   width:100%;
   font-size:12px;
-  line-height:50px;
+  line-height:100rpx;
   color: snow;
-  height: 50px;
+  height: 100rpx;
 }
 .cl_h{
   clear: both;
