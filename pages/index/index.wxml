@@ -4,14 +4,14 @@
   <template is="swiper" data="{{indicatorDots:indicatorDots,autoplay:autoplay,interval:interval,duration:duration,imgUrls:imgUrls}}" />
 
   <view class="cont">
-       <navigator class="pr" url="../product/detail?productId={{item.id}}&token=oiQMA0akVrNjiypMDLOfcYrcIjmQ" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">   
-      <!-- <navigator class="pr" url="../product/bargain?productId={{item.id}}" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">   -->
-      <view class="shengyu">剩余：{{item.num}} {{item.company}}</view> 
-       <image class="photo" src="{{item.photo_x}}"></image> 
+    <!-- <navigator class="pr" url="../product/detail?productId={{item.id}}&token=oiQMA0akVrNjiypMDLOfcYrcIjmQ" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">    -->
+    <navigator class="pr" url="../product/bargain?productId={{item.id}}" hover-class="changestyle" wx:for="{{productData}}" wx:key="key">
+      <view class="shengyu">剩余：{{item.num}} {{item.company}}</view>
+      <image class="photo" src="{{item.photo_x}}"></image>
       <view class="title">【{{item.bname}}】{{item.name}}</view>
       <view class="title" wx:if="{{item.kj_list.length>0}}">
         <image wx:for="{{item.kj_list}}" wx:key="key" wx:for-index="cellindex" wx:if="{{cellindex<10}}" wx:for-item="cell" class="s_avatar" src="{{cell.picurl}}"></image>
-        
+
         <view class="fl_r l_text">{{item.kj_list.length}}人正在参加</view>
       </view>
       <view class='title'>
@@ -24,7 +24,7 @@
           <view class="mt_kj bg_cheng fl_r">去砍价</view>
         </view>
       </view>
-       
+
     </navigator>
   </view>
   <view class="clear mt10" bindtap="getMore">点击查看更多</view>

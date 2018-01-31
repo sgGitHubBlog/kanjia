@@ -11,7 +11,7 @@ Page({
     bannerItem: [],
     buynum: 1,
     // 产品图片轮播
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 1000,
@@ -32,15 +32,20 @@ Page({
   // 传值
   onLoad: function(option) {
     var that = this;
-    wx.showLoading({
+    /*wx.showLoading({
       title: '加载中',
       mask:true
+    })*/
+    app.getUserInfo(function(userInfo){
+      console.log(userInfo);
+      app.globalData.userInfo = userInfo;
+      that.setData({
+        productId: option.productId,
+        token: option.token,
+        openid: userInfo.openid
+      });
+      that.loadProductDetail(); //加载商品详情
     })
-    that.setData({
-      productId: option.productId,
-      token: option.token
-    });
-    that.loadProductDetail(); //加载商品详情
     //wx.showShareMenu({withShareTicket: true})
   },
   // 商品详情数据获取

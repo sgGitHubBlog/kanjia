@@ -22,7 +22,7 @@
       </view>
     </view>
     <view class='textInfo'>
-      {{itemData.username}}正在参与【{{itemData.name}}】砍价活动，把价格砍到最低价格，TA就可以特惠抢购爱此商品哟！
+      {{itemData.username}}正在参与【{{itemData.name}}】砍价活动，把价格砍到最低价格，TA就可以特惠抢购此商品哟！
     </view>
     <view class="gmxx">
       <view class="bg">
@@ -95,13 +95,26 @@
   <view class="footfixed tc">
     <view class="fl_l w100 h50">
       <!-- <form  bindsubmit='helpTa' class="w50 fl_l h50" report-submit='true'> -->
-        <button wx:if="{{!myBk}}" bindtap='helpTa' data-type='helpTa' class='helpTaBtn w50 fl_l h50 bg_green white'>
-          <view>帮Ta砍</view>
+        <button wx:if="{{!myBk}}" bindtap='helpTa' data-type='helpTa' class='helpTaBtn w50 fl_l h50 bg_no'>
+          <view class="fl_l w100">
+            <image class="icon" src='/images/icons/hanrenkanjia.png'/>
+          </view>
+          <view class="icon_title w100">帮Ta砍</view>
         </button>
       <!-- </form> -->
-      <view class="fl_l {{myBk?'w100':'w50'}} h50 bg_red white" open-type="share">
-        <button wx:if="{{kjType}}" class="w100 fl_l bg_no white" open-type="share">喊人砍价</button>
-          <view wx:if="{{!kjType}}" class="w100 fl_l h50 bg_red white" bindtap="helpTa" data-type="helpMe">我也参加</view>
+      <view class="fl_l {{myBk?'w100':'w50'}} h50" open-type="share">
+        <button wx:if="{{kjType}}" class="w100 fl_l bg_no white" open-type="share">
+          <view class="fl_l w100">
+            <image class="icon" src='/images/icons/faqi.png'/>
+          </view>
+          <view class="icon_title w100">喊人砍价</view>
+        </button>
+        <view wx:if="{{!kjType}}" class="w100 fl_l h50" bindtap="helpTa" data-type="helpMe">
+            <view class="fl_l w100">
+              <image class="icon" src='/images/icons/faqi.png'></image>
+            </view>
+            <view class="icon_title w100">我也参加</view>
+        </view>
       </view>
     </view>
   </view>

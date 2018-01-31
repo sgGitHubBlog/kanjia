@@ -56,8 +56,8 @@ page{
 .bg_red{ background: #dd2727;}
 .bg_green{ background: #02bf02;}
 .bg_cheng{ background: #f85;}
-.bg_no{background: none;border: 0 !important;border-radius: 0;}
-button.bg_no{content: none !important;line-height:100rpx;}
+.bg_no{background: none;border: 0;border-radius: 0;}
+button.bg_no{content: none;line-height:100rpx;}
 
 .clear{  clear: both;}
 .ovh1{
